@@ -95,11 +95,28 @@ export default function App() {
     }
 
     if (planId === "premium") {
-      alert("Premium: acá iría el flujo de checkout (pendiente).");
+      openCheckoutPremium();
     } else {
       scrollToId("top");
     }
   }
+
+  function openCheckoutPremium() {
+  if (!window.fastspring) {
+    alert("Error cargando FastSpring. Probá recargar la página.");
+    return;
+  }
+
+  window.fastspring.builder.push({
+    products: [
+      {
+        path: "suscription-plus",
+        quantity: 1,
+      },
+    ],
+  });
+}
+
 
   return (
     <div className="page">
