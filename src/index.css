@@ -1,0 +1,1170 @@
+/* =========================================================
+   THEME / TOKENS
+========================================================= */
+:root {
+  /* Base */
+  --black: #0b0b0f;
+  --white: #ffffff;
+
+  /* Brand (violeta) */
+  --violet-500: #7c5cff;
+  --violet-600: #6a4df5;
+  --violet-700: #5a3ee0;
+
+  /* Neutrals */
+  --gray-100: #f4f4f7;
+  --gray-300: #c9c9d1;
+  --gray-600: #6b6b7a;
+
+  /* UI */
+  --bg-main: var(--black);
+  --bg-card: #12121a;
+  --bg-input: #0b0b0f;
+
+  --text-main: var(--white);
+  --text-muted: var(--gray-300);
+
+  --border-soft: rgba(255, 255, 255, 0.08);
+  --border-input: rgba(255, 255, 255, 0.14);
+
+  --shadow-focus: 0 0 0 3px rgba(124, 92, 255, 0.18);
+
+  /* Radius */
+  --radius: 14px;
+  --radius-sm: 10px;
+}
+
+/* =========================================================
+   GLOBAL
+========================================================= */
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  margin: 0;
+  font-family: "Inter", system-ui, -apple-system, BlinkMacSystemFont, sans-serif;
+  background: var(--bg-main);
+  color: var(--text-main);
+}
+
+section {
+  scroll-margin-top: 80px;
+}
+
+/* =========================================================
+   HEADER
+========================================================= */
+.header {
+  position: sticky;
+  top: 0;
+  z-index: 20;
+  background: rgba(11, 11, 15, 0.9);
+  backdrop-filter: blur(10px);
+  border-bottom: 1px solid var(--border-soft);
+}
+
+.header-inner {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 14px 16px;
+}
+
+.brand {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.logo {
+  width: 36px;
+  height: 36px;
+  border-radius: var(--radius-sm);
+  background: linear-gradient(135deg, var(--violet-500), var(--violet-700));
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 700;
+  font-size: 11px;
+}
+
+.brand-name {
+  font-weight: 700;
+  letter-spacing: 0.3px;
+}
+
+.nav a {
+  margin-left: 14px;
+  font-size: 14px;
+  color: var(--text-muted);
+  text-decoration: none;
+}
+
+.nav a:hover {
+  color: var(--violet-500);
+}
+
+/* =========================================================
+   CALCULATOR (PAGE SECTION)
+========================================================= */
+.calculator {
+  padding: 24px 16px 40px;
+  color: var(--text-main);
+}
+
+.calculator-title {
+  font-size: 26px;
+  line-height: 1.2;
+  margin: 0 0 10px 0;
+}
+
+.calculator-subtitle {
+  font-size: 15px;
+  color: var(--text-muted);
+  margin: 0 0 20px 0;
+}
+
+/* Outer container of the app (dark card) */
+.calculator-app {
+  background: linear-gradient(
+    180deg,
+    rgba(255,255,255,0.04),
+    rgba(255,255,255,0.02)
+  );
+  border: none;             
+  border-radius: 20px;
+  padding: 24px;
+}
+
+
+/* Make inner elements inherit text color by default */
+.calculator-app * {
+  color: inherit;
+}
+
+/* Inputs (dark) */
+.calculator-app textarea,
+.calculator-app input,
+.calculator-app select {
+  width: 100%;
+  background: var(--bg-input);
+  color: var(--text-main);
+  border: 1px solid var(--border-input);
+  border-radius: 12px;
+  padding: 12px 14px;
+  outline: none;
+  font: inherit;
+}
+
+.calculator-app textarea::placeholder,
+.calculator-app input::placeholder {
+  color: rgba(255, 255, 255, 0.55);
+}
+
+.calculator-app textarea:focus,
+.calculator-app input:focus,
+.calculator-app select:focus {
+  border-color: rgba(124, 92, 255, 0.7);
+  box-shadow: var(--shadow-focus);
+}
+
+/* Buttons */
+.calculator-app button {
+  background: linear-gradient(135deg, var(--violet-500), var(--violet-700));
+  color: var(--text-main);
+  border: none;
+  border-radius: 12px;
+  padding: 12px 16px;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+.calculator-app button:hover {
+  opacity: 0.92;
+}
+
+.calculator-app button:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+/* =========================================================
+   IMPORTANT: RESPONSE + PLOT LAYOUT
+   Mobile-first: stacked (top/bottom)
+   Tablet/PC: side-by-side
+========================================================= */
+.calc-button{
+  margin-top: 12px;
+  margin-right: 15px;
+}
+
+
+.calc-grid {
+  display: grid;
+  grid-template-columns: 1fr; /* 📱 Mobile: vertical */
+  gap: 12px;
+  margin-top: 12px;
+}
+
+/* A reusable "panel card" style for inner blocks */
+.calc-card {
+  background: rgba(255, 255, 255, 0.04);
+  border: 1px solid var(--border-soft);
+  border-radius: var(--radius);
+  padding: 14px;
+}
+.calc-card:first-of-type {
+  padding: 20px;
+  border-radius: 16px;
+  background: rgba(255,255,255,0.06);
+}
+
+/* If your old code uses .card (from inline version), style it too */
+.calculator-app .card {
+  background: rgba(255, 255, 255, 0.04);
+  border: 1px solid var(--border-soft);
+  border-radius: var(--radius);
+  padding: 14px;
+}
+.calculator-app textarea {
+  resize: none;
+}
+.calc-textarea {
+  min-height: 140px;
+} 
+/* Titles inside cards (optional if you want consistent h2) */
+.calc-card h2,
+.calculator-app .card h2 {
+  margin: 0 0 10px 0;
+  font-size: 16px;
+}
+
+/* Optional helper: keep long JSON readable */
+.calculator-app pre {
+  background: rgba(0, 0, 0, 0.35);
+  border: 1px solid var(--border-soft);
+  border-radius: 12px;
+  padding: 10px;
+  overflow-x: auto;
+}
+
+/* Tablet and up: side-by-side */
+@media (min-width: 768px) {
+  .calculator {
+    max-width: 720px;
+    margin: 0 auto;
+  }
+
+  .calc-grid {
+    grid-template-columns: 1fr 1fr; /* 🟪 Tablet/PC: two columns */
+    align-items: start;
+  }
+
+  .plans-grid {
+    grid-template-columns: 1fr 1fr;
+  }
+}
+
+/* Desktop wider layout */
+@media (min-width: 1024px) {
+  .header-inner,
+  .calculator,
+  .plans,
+  .footer {
+    max-width: 1100px;
+    margin: 0 auto;
+  }
+
+  .calculator-title {
+    font-size: 32px;
+  }
+
+  .calculator-app {
+    padding: 24px;
+  }
+}
+
+/* =========================================================
+   PLANS
+========================================================= */
+.plans {
+  padding: 32px 16px;
+}
+
+.plans-grid {
+  display: grid;
+  gap: 16px;
+}
+
+.plan-card {
+  background: var(--bg-card);
+  border: 1px solid var(--border-soft);
+  border-radius: var(--radius);
+  padding: 18px;
+}
+
+.plan-card--premium {
+  border-color: var(--violet-500);
+}
+
+.plan-card h3 {
+  margin-top: 0;
+  color: var(--violet-500);
+}
+
+/* =========================================================
+   FOOTER
+========================================================= */
+.footer {
+  padding: 32px 16px;
+  border-top: 1px solid var(--border-soft);
+  color: var(--text-muted);
+  text-align: center;
+  font-size: 14px;
+}
+
+/* 1) Box model sano para TODO */
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+/* 2) En grid/flex, permite que los hijos NO se desborden */
+.calc-card,
+.calc-grid > * {
+  min-width: 0;
+}
+
+/* 3) Textarea siempre se queda dentro del bloque */
+.calculator-app textarea {
+  width: 100%;
+  max-width: 100%;
+  display: block;
+  resize: none; /* ya lo querías fijo */
+}
+
+
+/* =========================================================
+   UPGRADE: BACKGROUND / GLOW / ANIMATIONS (ADD-ON)
+   Pegalo al FINAL de tu CSS
+========================================================= */
+
+/* Fondo más pro sin tocar tus tokens */
+body {
+  background:
+    radial-gradient(1200px 700px at 15% 0%, rgba(124, 92, 255, 0.18), transparent 55%),
+    radial-gradient(900px 600px at 95% 10%, rgba(90, 62, 224, 0.16), transparent 55%),
+    radial-gradient(900px 800px at 35% 110%, rgba(124, 92, 255, 0.10), transparent 55%),
+    linear-gradient(180deg, #07070b, #0b0b0f);
+}
+
+/* Header glass más “premium” */
+.header {
+  background: rgba(11, 11, 15, 0.72);
+  backdrop-filter: blur(14px);
+  border-bottom: 1px solid rgba(255,255,255,0.10);
+}
+
+/* Logo con glow */
+.logo {
+  box-shadow: 0 0 0 6px rgba(124,92,255,0.12), 0 0 26px rgba(124,92,255,0.35);
+}
+
+/* Links con underline animado */
+.nav a {
+  position: relative;
+  padding-bottom: 4px;
+}
+.nav a::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  bottom: 0;
+  width: 0%;
+  height: 2px;
+  border-radius: 999px;
+  background: linear-gradient(90deg, var(--violet-500), var(--violet-700));
+  box-shadow: 0 0 14px rgba(124,92,255,0.35);
+  transition: width 220ms ease;
+}
+.nav a:hover::after { width: 100%; }
+
+/* Cards del “app” con efecto vidrio + brillo diagonal */
+.calculator-app {
+  border: 1px solid rgba(255,255,255,0.08);
+  box-shadow: 0 18px 50px rgba(0,0,0,0.55);
+  position: relative;
+  overflow: hidden;
+}
+.calculator-app::after {
+  content: "";
+  position: absolute;
+  inset: -50%;
+  background: linear-gradient(135deg, transparent 38%, rgba(255,255,255,0.10) 50%, transparent 62%);
+  transform: rotate(12deg);
+  opacity: 0.20;
+  animation: sheen 6s ease-in-out infinite;
+  pointer-events: none;
+}
+@keyframes sheen {
+  0%,100% { transform: translateX(-8%) rotate(12deg); opacity: 0.14; }
+  50%     { transform: translateX(8%)  rotate(12deg); opacity: 0.26; }
+}
+
+/* Hover pro para paneles internos */
+.calc-card {
+  transition: transform 160ms ease, border-color 160ms ease, box-shadow 160ms ease;
+}
+@media (hover:hover) {
+  .calc-card:hover {
+    transform: translateY(-2px);
+    border-color: rgba(124,92,255,0.26);
+    box-shadow: 0 10px 30px rgba(124,92,255,0.14);
+  }
+}
+
+/* Botón con shimmer */
+.calculator-app button {
+  position: relative;
+  overflow: hidden;
+  box-shadow: 0 10px 26px rgba(124,92,255,0.22);
+  transition: transform 150ms ease, filter 150ms ease;
+}
+.calculator-app button:hover {
+  transform: translateY(-1px);
+  filter: brightness(1.03);
+}
+.calculator-app button::after {
+  content: "";
+  position: absolute;
+  inset: -40%;
+  background: radial-gradient(circle at 30% 30%, rgba(255,255,255,0.28), transparent 55%);
+  opacity: 0.35;
+  transform: translateX(-20%);
+  animation: btnGlow 2.2s ease-in-out infinite;
+  pointer-events: none;
+}
+@keyframes btnGlow {
+  0%,100% { transform: translateX(-18%); opacity: 0.26; }
+  50%     { transform: translateX(18%);  opacity: 0.40; }
+}
+
+/* Texto platinado con brillo interno (usalo para lo “importante”) */
+.shine-platinum {
+  background: linear-gradient(
+    110deg,
+    #8e96a3 0%,
+    #f4f5f7 35%,
+    #cfd3da 50%,
+    #f4f5f7 65%,
+    #8e96a3 100%
+  );
+  background-size: 200% 100%;
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+  filter: drop-shadow(0 0 12px rgba(255,255,255,0.10));
+  display: inline-block;
+  animation: platinumShimmer 3.4s linear infinite;
+}
+@keyframes platinumShimmer {
+  0%   { background-position: 0% 50%; }
+  100% { background-position: 200% 50%; }
+}
+
+/* Float suave (si querés “levitar” cosas: agregá class="float-soft") */
+.float-soft { animation: floatSoft 4.2s ease-in-out infinite; }
+@keyframes floatSoft {
+  0%,100% { transform: translateY(0); }
+  50%     { transform: translateY(-4px); }
+}
+
+/* Fix final anti-overflow mobile */
+.calc-grid,
+.calculator-app,
+.calc-card,
+.calc-pre,
+.calculator-app textarea {
+  max-width: 100%;
+}
+/* ---------- Helpers / Layout ---------- */
+.main {
+  width: 100%;
+}
+
+.section {
+  padding: 44px 16px;
+}
+
+.section-title {
+  margin: 0 0 10px 0;
+  font-size: 22px;
+  letter-spacing: 0.2px;
+}
+
+.section-subtitle {
+  margin: 0 0 18px 0;
+  color: var(--text-muted);
+  line-height: 1.5;
+  max-width: 70ch;
+}
+
+/* si querés que se vea más “hero” */
+.calculator-title {
+  font-size: clamp(26px, 4vw, 40px);
+  letter-spacing: -0.02em;
+}
+
+/* ---------- Platinum shimmer (lo que ya usás: .shine-platinum) ---------- */
+.shine-platinum {
+  position: relative;
+  display: inline-block;
+  color: rgba(255, 255, 255, 0.92);
+  text-shadow:
+    0 0 18px rgba(255, 255, 255, 0.10),
+    0 0 40px rgba(124, 92, 255, 0.10);
+}
+
+.shine-platinum::after {
+  content: "";
+  position: absolute;
+  inset: -8px -14px;
+  background: linear-gradient(
+    120deg,
+    transparent 0%,
+    rgba(255,255,255,0.10) 18%,
+    rgba(255,255,255,0.42) 28%,
+    rgba(255,255,255,0.10) 38%,
+    transparent 60%
+  );
+  transform: translateX(-120%);
+  filter: blur(0.4px);
+  mix-blend-mode: screen;
+  pointer-events: none;
+  animation: shimmer 3.4s ease-in-out infinite;
+  border-radius: 999px;
+}
+
+@keyframes shimmer {
+  0%   { transform: translateX(-120%); opacity: 0; }
+  25%  { opacity: 1; }
+  55%  { opacity: 1; }
+  100% { transform: translateX(120%); opacity: 0; }
+}
+
+/* ---------- Cards PRO (unifica look) ---------- */
+.plan-card,
+.dev-card {
+  position: relative;
+  background: linear-gradient(
+    180deg,
+    rgba(255,255,255,0.06),
+    rgba(255,255,255,0.03)
+  );
+  border: 1px solid var(--border-soft);
+  border-radius: 18px;
+  padding: 18px;
+  overflow: hidden;
+  box-shadow:
+    0 10px 35px rgba(0,0,0,0.35),
+    inset 0 1px 0 rgba(255,255,255,0.05);
+  transition: transform 180ms ease, border-color 180ms ease, box-shadow 180ms ease;
+}
+
+/* glow “ambient” */
+.plan-card::before,
+.dev-card::before {
+  content: "";
+  position: absolute;
+  inset: -40%;
+  background:
+    radial-gradient(circle at 20% 20%, rgba(124,92,255,0.20), transparent 55%),
+    radial-gradient(circle at 80% 20%, rgba(255,255,255,0.08), transparent 50%),
+    radial-gradient(circle at 50% 90%, rgba(124,92,255,0.10), transparent 55%);
+  filter: blur(18px);
+  opacity: 0.7;
+  pointer-events: none;
+}
+
+.plan-card:hover,
+.dev-card:hover {
+  transform: translateY(-4px);
+  border-color: rgba(124,92,255,0.45);
+  box-shadow:
+    0 18px 55px rgba(0,0,0,0.55),
+    0 0 0 1px rgba(124,92,255,0.22),
+    inset 0 1px 0 rgba(255,255,255,0.06);
+}
+
+/* class que ya usabas */
+.float-soft {
+  animation: floatSoft 4.5s ease-in-out infinite;
+}
+@keyframes floatSoft {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-6px); }
+}
+
+/* ---------- Planes ---------- */
+.plans-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 14px;
+  margin-top: 14px;
+}
+
+.plan-head {
+  margin-bottom: 12px;
+}
+
+.plan-name {
+  margin: 0;
+  font-size: 18px;
+  font-weight: 800;
+  letter-spacing: 0.2px;
+  color: rgba(255,255,255,0.92);
+}
+
+.plan-price {
+  margin: 8px 0 6px 0;
+  font-weight: 800;
+  font-size: 22px;
+  color: rgba(255,255,255,0.98);
+}
+
+.plan-currency { opacity: 0.85; margin-right: 2px; }
+.plan-period { font-size: 14px; opacity: 0.7; margin-left: 4px; }
+
+.plan-desc {
+  margin: 0;
+  color: var(--text-muted);
+  line-height: 1.5;
+}
+
+.plan-features {
+  margin: 14px 0 14px 0;
+  padding-left: 18px;
+  color: rgba(255,255,255,0.90);
+}
+
+.plan-features li {
+  margin: 8px 0;
+  line-height: 1.45;
+}
+
+/* Botones pro */
+.plan-button {
+  width: 100%;
+  border: none;
+  border-radius: 14px;
+  padding: 12px 14px;
+  font-weight: 800;
+  letter-spacing: 0.2px;
+  cursor: pointer;
+  transition: transform 160ms ease, filter 160ms ease, box-shadow 160ms ease;
+}
+
+.plan-button:active {
+  transform: translateY(1px) scale(0.99);
+}
+
+.plan-button--ghost {
+  background: rgba(255,255,255,0.06);
+  color: rgba(255,255,255,0.92);
+  border: 1px solid rgba(255,255,255,0.12);
+}
+
+.plan-button--ghost:hover {
+  filter: brightness(1.08);
+  box-shadow: 0 0 0 3px rgba(124,92,255,0.10);
+}
+
+.plan-button--primary {
+  background: linear-gradient(135deg, var(--violet-500), var(--violet-700));
+  color: #fff;
+  box-shadow:
+    0 14px 40px rgba(124,92,255,0.22),
+    inset 0 1px 0 rgba(255,255,255,0.18);
+}
+
+.plan-button--primary:hover {
+  filter: brightness(1.08);
+  box-shadow:
+    0 18px 55px rgba(124,92,255,0.30),
+    0 0 0 3px rgba(124,92,255,0.18);
+}
+
+.plan-footnote {
+  margin: 10px 0 0 0;
+  font-size: 13px;
+  color: rgba(255,255,255,0.70);
+}
+
+/* premium badge */
+.plan-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 12px;
+  font-weight: 800;
+  letter-spacing: 0.25px;
+  color: rgba(255,255,255,0.92);
+  background: rgba(124,92,255,0.16);
+  border: 1px solid rgba(124,92,255,0.35);
+  padding: 6px 10px;
+  border-radius: 999px;
+  margin-bottom: 10px;
+}
+
+.plan-card--premium {
+  border-color: rgba(124,92,255,0.55);
+}
+
+/* ---------- Devs ---------- */
+.devs-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 14px;
+  margin-top: 14px;
+}
+
+.dev-card {
+  display: grid;
+  grid-template-columns: 64px 1fr;
+  gap: 14px;
+  align-items: start;
+}
+
+/* “foto” circular placeholder */
+.dev-avatar {
+  width: 64px;
+  height: 64px;
+  border-radius: 999px;
+  background:
+    radial-gradient(circle at 30% 30%, rgba(255,255,255,0.18), transparent 55%),
+    linear-gradient(135deg, rgba(124,92,255,0.70), rgba(90,62,224,0.55));
+  border: 1px solid rgba(255,255,255,0.14);
+  box-shadow:
+    0 12px 35px rgba(124,92,255,0.18),
+    inset 0 1px 0 rgba(255,255,255,0.14);
+}
+
+.dev-name {
+  margin: 0;
+  font-size: 16px;
+  font-weight: 900;
+  letter-spacing: 0.15px;
+}
+
+.dev-role {
+  margin: 6px 0 10px 0;
+  color: rgba(255,255,255,0.78);
+  font-size: 13px;
+}
+
+.dev-contact {
+  margin: 0;
+  padding-left: 18px;
+  color: rgba(255,255,255,0.86);
+}
+
+.dev-contact li {
+  margin: 7px 0;
+  line-height: 1.4;
+}
+
+.dev-label {
+  color: rgba(255,255,255,0.65);
+  margin-right: 6px;
+}
+
+.dev-link {
+  color: rgba(124,92,255,0.95);
+  text-decoration: none;
+  border-bottom: 1px solid rgba(124,92,255,0.25);
+  transition: color 150ms ease, border-color 150ms ease, text-shadow 150ms ease;
+}
+
+.dev-link:hover {
+  color: rgba(170, 150, 255, 1);
+  border-color: rgba(170, 150, 255, 0.55);
+  text-shadow: 0 0 18px rgba(124,92,255,0.25);
+}
+
+/* ---------- Responsivo (mobile-first) ---------- */
+@media (min-width: 768px) {
+  .plans-grid {
+    grid-template-columns: 1fr 1fr;
+    gap: 16px;
+  }
+
+  .devs-grid {
+    grid-template-columns: 1fr 1fr;
+    gap: 16px;
+  }
+
+  .section-title {
+    font-size: 24px;
+  }
+}
+
+@media (min-width: 1024px) {
+  .devs-grid {
+    grid-template-columns: 1fr 1fr 1fr;
+  }
+}
+
+/* ---------- Accesibilidad / Motion ---------- */
+@media (prefers-reduced-motion: reduce) {
+  .float-soft,
+  .shine-platinum::after {
+    animation: none !important;
+  }
+
+  .plan-card,
+  .dev-card,
+  .plan-button {
+    transition: none !important;
+  }
+}
+.calc-card {
+  overflow: hidden; /* corta cualquier overflow raro */
+}
+
+/* Texto de respuesta (pre o p) */
+.calc-answer,
+.calc-pre {
+  white-space: pre-wrap;      /* ⬅️ permite saltos de línea */
+  word-wrap: break-word;      /* ⬅️ corta palabras largas */
+  overflow-wrap: anywhere;    /* ⬅️ rompe strings infinitos */
+  max-width: 100%;
+  line-height: 1.55;
+}
+
+/* Pre específicamente (JSON / debug / texto largo) */
+.calc-pre {
+  background: rgba(0, 0, 0, 0.35);
+  border: 1px solid var(--border-soft);
+  border-radius: 12px;
+  padding: 14px;
+  margin: 10px 0 0 0;
+
+  /* 🔥 CLAVE: */
+  overflow-x: hidden; /* ❌ nunca horizontal */
+  overflow-y: auto;   /* ✅ vertical solo si hace falta */
+
+  max-height: 420px;  /* opcional: evita cards infinitas */
+}
+
+/* Evita que details empuje ancho */
+.calc-details {
+  max-width: 100%;
+}
+
+.calc-details summary {
+  cursor: pointer;
+  user-select: none;
+}
+
+/* En mobile: más aire vertical */
+@media (max-width: 767px) {
+  .calc-pre {
+    max-height: none; /* en mobile dejalo crecer todo */
+  }
+}
+
+@media (min-width: 1280px) {
+  .header-inner,
+  .calculator,
+  .plans,
+  .footer {
+    max-width: 1400px;   /* antes 1100px */
+  }
+}
+
+@media (min-width: 1600px) {
+  .header-inner,
+  .calculator,
+  .plans,
+  .footer {
+    max-width: 1600px;   /* monitores grandes */
+  }
+}
+@media (min-width: 1280px) {
+  .calc-grid {
+    grid-template-columns: 1.6fr 1.8fr; /* 🔥 Respuesta | Gráfico */
+    gap: 24px;
+  }
+}
+
+@media (min-width: 1600px) {
+  .calc-grid {
+    grid-template-columns: 1.8fr 2.2fr; /* pantallas grandes posta */
+    gap: 28px;
+  }
+}
+@media (min-width: 1280px) {
+  .calc-card {
+    padding: 26px;
+    border-radius: 20px;
+  }
+}
+/* Texto principal de la respuesta */
+.calc-answer,
+.calc-pre {
+  font-size: 14.5px;
+}
+
+@media (min-width: 1280px) {
+  .calc-answer,
+  .calc-pre {
+    font-size: 16px;       /* 🔥 */
+    line-height: 1.65;
+  }
+}
+/* =========================
+   LOGIN MODAL (PRO)
+========================= */
+.login-overlay {
+  position: fixed;
+  inset: 0;
+  background: radial-gradient(circle at 20% 10%, rgba(124,92,255,.25), transparent 45%),
+              rgba(0,0,0,.65);
+  backdrop-filter: blur(10px);
+  display: grid;
+  place-items: center;
+  z-index: 9999;
+  padding: 16px;
+  animation: fadeIn .18s ease-out;
+}
+
+.login-modal {
+  width: min(520px, 100%);
+  border-radius: 22px;
+  padding: 22px;
+  background:
+    linear-gradient(180deg, rgba(255,255,255,.06), rgba(255,255,255,.03));
+  border: 1px solid rgba(255,255,255,.12);
+  box-shadow: 0 30px 80px rgba(0,0,0,.55);
+  position: relative;
+  overflow: hidden;
+  animation: popIn .22s ease-out;
+}
+
+.login-modal::before {
+  content: "";
+  position: absolute;
+  inset: -2px;
+  background: radial-gradient(circle at 15% 20%, rgba(124,92,255,.30), transparent 50%),
+              radial-gradient(circle at 85% 30%, rgba(255,255,255,.10), transparent 55%);
+  filter: blur(12px);
+  opacity: .9;
+  pointer-events: none;
+}
+
+@keyframes fadeIn { from { opacity: 0 } to { opacity: 1 } }
+@keyframes popIn {
+  from { transform: translateY(8px) scale(.98); opacity: 0 }
+  to { transform: translateY(0) scale(1); opacity: 1 }
+}
+
+/* =========================
+   Login content styling
+   (asume clases dentro de <Login />)
+========================= */
+.login-card {;
+  position: relative;
+  z-index: 1;
+  padding: 10px 6px 6px;
+}
+
+.login-title {
+  margin: 0 0 6px 0;
+  font-size: 22px;
+  letter-spacing: .2px;
+}
+
+.login-subtitle {
+  margin: 0 0 14px 0;
+  color: rgba(255,255,255,.72);
+  font-size: 14px;
+  line-height: 1.45;
+}
+
+.login-form {
+  display: grid;
+  gap: 12px;
+}
+
+.login-field label {
+  display: block;
+  font-size: 13px;
+  color: rgba(255,255,255,.75);
+  margin: 0 0 6px 0;
+}
+
+.login-field input {
+  width: 100%;
+  background: rgba(0,0,0,.35);
+  border: 1px solid rgba(255,255,255,.14);
+  border-radius: 14px;
+  padding: 12px 14px;
+  color: #fff;
+  outline: none;
+}
+
+.login-field input:focus {
+  border-color: rgba(124,92,255,.75);
+  box-shadow: 0 0 0 3px rgba(124,92,255,.18);
+}
+
+.login-actions {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+  margin-top: 6px;
+}
+
+.login-button {
+  width: 100%;
+  background: linear-gradient(135deg, rgba(124,92,255,1), rgba(90,62,224,1));
+  border: none;
+  color: #fff;
+  padding: 12px 16px;
+  border-radius: 14px;
+  font-weight: 700;
+  cursor: pointer;
+  transition: transform .15s ease, filter .15s ease;
+}
+
+.login-button:hover {
+  transform: translateY(-1px);
+  filter: brightness(1.05);
+}
+
+.login-error {
+  background: rgba(255, 70, 70, .10);
+  border: 1px solid rgba(255, 70, 70, .22);
+  padding: 10px 12px;
+  border-radius: 14px;
+  color: rgba(255,255,255,.92);
+  font-size: 13px;
+}
+
+/* Shine platinum que pediste (usable en Login también) */
+.shine-platinum {
+  background: linear-gradient(90deg,
+      rgba(230,230,235,.75),
+      rgba(255,255,255,1),
+      rgba(190,190,200,.75));
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+  position: relative;
+  text-shadow: 0 0 18px rgba(255,255,255,.08);
+}
+
+.shine-platinum::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(120deg,
+    transparent 0%,
+    rgba(255,255,255,.25) 40%,
+    transparent 70%);
+  transform: translateX(-120%);
+  animation: shineMove 2.6s ease-in-out infinite;
+  mix-blend-mode: screen;
+}
+
+@keyframes shineMove {
+  0% { transform: translateX(-120%) }
+  55% { transform: translateX(120%) }
+  100% { transform: translateX(120%) }
+}
+/* =========================================================
+   HEADER – LOGIN / LOGOUT BUTTON
+========================================================= */
+
+.nav-logout {
+  appearance: none;
+  border: 1px solid rgba(124, 92, 255, 0.45);
+  background: linear-gradient(
+    135deg,
+    rgba(124, 92, 255, 0.18),
+    rgba(90, 62, 224, 0.18)
+  );
+  color: #fff;
+  padding: 8px 14px;
+  border-radius: 999px;
+  font-size: 13px;
+  font-weight: 600;
+  letter-spacing: 0.3px;
+  cursor: pointer;
+  position: relative;
+  overflow: hidden;
+
+  transition:
+    transform 0.15s ease,
+    box-shadow 0.15s ease,
+    border-color 0.15s ease,
+    background 0.15s ease;
+}
+
+/* brillo interno */
+.nav-logout::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    120deg,
+    transparent 0%,
+    rgba(255, 255, 255, 0.35) 45%,
+    transparent 70%
+  );
+  transform: translateX(-120%);
+  transition: transform 0.6s ease;
+  pointer-events: none;
+}
+
+/* hover */
+.nav-logout:hover {
+  transform: translateY(-1px);
+  border-color: rgba(124, 92, 255, 0.9);
+  box-shadow:
+    0 0 0 3px rgba(124, 92, 255, 0.18),
+    0 8px 24px rgba(0, 0, 0, 0.35);
+}
+
+.nav-logout:hover::before {
+  transform: translateX(120%);
+}
+
+/* active */
+.nav-logout:active {
+  transform: translateY(0);
+  box-shadow: 0 0 0 2px rgba(124, 92, 255, 0.2);
+}
+
+/* =========================================================
+   VARIANTE LOGOUT (cuando está logueado)
+========================================================= */
+.nav-logout.logout {
+  margin-left: ;
+  border-color: rgba(255, 120, 120, 0.45);
+  background: linear-gradient(
+    135deg,
+    rgba(255, 80, 80, 0.15),
+    rgba(180, 40, 40, 0.15)
+  );
+}
+
+.nav-logout.logout:hover {
+  border-color: rgba(255, 120, 120, 0.85);
+  box-shadow:
+    0 0 0 3px rgba(255, 80, 80, 0.18),
+    0 8px 24px rgba(0, 0, 0, 0.35);
+}
