@@ -1,7 +1,9 @@
 import { useState } from "react";
 import Calculator from "./calculator.jsx";
-import Login from "./Login.jsx";
+import Login from "./login.jsx";
 import { getToken, clearToken } from "./auth";
+import "katex/dist/katex.min.css";
+
 
 const DEVELOPERS = [
   {

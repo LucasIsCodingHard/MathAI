@@ -13,7 +13,7 @@ export default function Login({ onLogin }) {
     try {
       if (!email || !pass) throw new Error("Completá email y contraseña.");
 
-      const res = await fetch("https://93d87bc943dc.ngrok-free.app/auth/login", {
+      const res = await fetch("https://e9318b7a53b1.ngrok-free.app/auth/login", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
