@@ -231,4 +231,52 @@ export default function App() {
       </footer>
     </div>
   );
+{/* ===== DESARROLLADORES ===== */}
+        <section id="devs" className="section devs">
+          <h2 className="section-title">
+            <span className="shine-platinum">Desarrolladores</span>
+          </h2>
+          <p className="section-subtitle">
+            Equipo del proyecto — contacto directo para feedback, bugs o propuestas.
+          </p>
+
+          <div className="devs-grid">
+            {DEVELOPERS.map((d) => (
+              <article key={d.name} className="dev-card">
+                <div className="dev-avatar" aria-label={`Foto de ${d.name}`} >
+                  <img src="/giarra.png" alt={`Avatar de ${d.name}`} />
+                </div>
+                <div className="dev-body">
+                  <h3 className="dev-name">{d.name}</h3>
+                  <p className="dev-role">{d.role}</p>
+
+                  <ul className="dev-contact">
+                    <li>
+                      <span className="dev-label">Email:</span>{" "}
+                      <a className="dev-link" href={`mailto:${d.email}`}>
+                        {d.email}
+                      </a>
+                    </li>
+
+                    <li>
+                      <span className="dev-label">GitHub:</span>{" "}
+                      <a className="dev-link" href={d.githubUrl} target="_blank" rel="noreferrer">
+                        {d.githubLabel}
+                      </a>
+                    </li>
+
+                    <li>
+                      <span className="dev-label">LinkedIn:</span>{" "}
+                      <a className="dev-link" href={d.linkedinUrl} target="_blank" rel="noreferrer">
+                        {d.linkedinLabel}
+                      </a>
+                    </li>
+                  </ul>
+                </div>
+              </article>
+            ))}
+          </div>
+        </section>
+      </main>
+
 }
