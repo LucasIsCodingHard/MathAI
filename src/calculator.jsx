@@ -3,7 +3,7 @@ import Plot from "react-plotly.js";
 import { getToken } from "./auth";
 
 // ✅ Backend (cambiá acá si vuelve a cambiar)
-const API_URL = "http://56.125.165.110:3000/math/";
+const API_URL = "https://93d87bc943dc.ngrok-free.app/math/";
 
 // ---------- helpers: parsear expresión matemática ----------
 function toJsExpression(expr) {

@@ -12,6 +12,7 @@
     "deploy": "gh-pages -d dist"
   },
   "dependencies": {
+    "better-react-mathjax": "^2.4.0-beta-1",
     "plotly.js": "^3.3.1",
     "react": "^19.2.0",
     "react-dom": "^19.2.0",

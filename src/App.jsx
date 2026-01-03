@@ -87,10 +87,9 @@ export default function App() {
   }
 
   function handlePlanClick(planId) {
-    // Si NO está logueado y toca premium → lo mandamos a login (simple y útil)
     if (!isLogged && planId === "premium") {
       scrollToId("top");
-      alert("Para Premium necesitás iniciar sesión (y luego iría el checkout).");
+      alert("Para Premium necesitás iniciar sesión.");
       return;
     }
 
@@ -102,11 +101,12 @@ export default function App() {
   }
 
   function openCheckoutPremium() {
-  if (!window.fastspring) {
-    alert("Error cargando FastSpring. Probá recargar la página.");
+  if (!window.fastspring || !window.fastspring.builder) {
+    alert("FastSpring no está cargado.");
     return;
   }
 
+  window.fastspring.builder.reset(); // importante
   window.fastspring.builder.push({
     products: [
       {
@@ -115,6 +115,8 @@ export default function App() {
       },
     ],
   });
+
+  window.fastspring.builder.checkout();
 }
 
 
@@ -123,7 +125,11 @@ export default function App() {
       {/* ===== HEADER ===== */}
       <header className="header">
         <div className="header-inner">
-          <div className="brand" onClick={() => scrollToId("top")} style={{ cursor: "pointer" }}>
+          <div
+            className="brand"
+            onClick={() => scrollToId("top")}
+            style={{ cursor: "pointer" }}
+          >
             <div className="logo">LOGO</div>
             <span className="brand-name">MathAI</span>
           </div>
@@ -132,35 +138,28 @@ export default function App() {
             <a href="#plans">Planes</a>
             <a href="#devs">Desarrolladores</a>
 
-            {isLogged ? (
-    <button
-    className="nav-logout logout"
-    onClick={handleLogout}
-    type="button"
-  >
-    Cerrar sesión
-  </button>
-) : (
-  <button
-    className="nav-logout"
-    onClick={() => setShowLogin(true)}
-    type="button"
-  >
-    Login
-  </button>
-)}
+            {isLogged && (
+              <button
+                className="nav-logout logout"
+                onClick={handleLogout}
+                type="button"
+              >
+                Cerrar sesión
+              </button>
+            )}
           </nav>
         </div>
       </header>
 
       {/* ===== MAIN ===== */}
       <main className="main">
-        {/* ===== TOP: LOGIN o CALCULADORA ===== */}
         <section className="calculator" id="top">
           {isLogged ? (
             <>
               <h1 className="calculator-title">
-                <span className="shine-platinum">Calculadora matemática avanzada</span>
+                <span className="shine-platinum">
+                  Calculadora matemática avanzada
+                </span>
               </h1>
 
               <p className="calculator-subtitle">
@@ -181,19 +180,16 @@ export default function App() {
           <h2 className="section-title">
             <span className="shine-platinum">Planes</span>
           </h2>
-          <p className="section-subtitle">
-            Elegí el plan según lo que necesitás: desde práctica diaria hasta resolución avanzada con visualizaciones.
-          </p>
 
           <div className="plans-grid">
             {PLANS.map((p) => (
               <article
                 key={p.id}
-                className={[
-                  "plan-card",
-                  p.id === "premium" ? "plan-card--premium" : "plan-card--free",
-                  "float-soft",
-                ].join(" ")}
+                className={`plan-card ${
+                  p.id === "premium"
+                    ? "plan-card--premium"
+                    : "plan-card--free"
+                } float-soft`}
               >
                 <header className="plan-head">
                   {p.badge && <div className="plan-badge">{p.badge}</div>}
@@ -225,55 +221,8 @@ export default function App() {
             ))}
           </div>
         </section>
-
-        {/* ===== DESARROLLADORES ===== */}
-        <section id="devs" className="section devs">
-          <h2 className="section-title">
-            <span className="shine-platinum">Desarrolladores</span>
-          </h2>
-          <p className="section-subtitle">
-            Equipo del proyecto — contacto directo para feedback, bugs o propuestas.
-          </p>
-
-          <div className="devs-grid">
-            {DEVELOPERS.map((d) => (
-              <article key={d.name} className="dev-card">
-                <div className="dev-avatar" aria-label={`Foto de ${d.name}`} />
-
-                <div className="dev-body">
-                  <h3 className="dev-name">{d.name}</h3>
-                  <p className="dev-role">{d.role}</p>
-
-                  <ul className="dev-contact">
-                    <li>
-                      <span className="dev-label">Email:</span>{" "}
-                      <a className="dev-link" href={`mailto:${d.email}`}>
-                        {d.email}
-                      </a>
-                    </li>
-
-                    <li>
-                      <span className="dev-label">GitHub:</span>{" "}
-                      <a className="dev-link" href={d.githubUrl} target="_blank" rel="noreferrer">
-                        {d.githubLabel}
-                      </a>
-                    </li>
-
-                    <li>
-                      <span className="dev-label">LinkedIn:</span>{" "}
-                      <a className="dev-link" href={d.linkedinUrl} target="_blank" rel="noreferrer">
-                        {d.linkedinLabel}
-                      </a>
-                    </li>
-                  </ul>
-                </div>
-              </article>
-            ))}
-          </div>
-        </section>
       </main>
 
-      {/* ===== FOOTER ===== */}
       <footer className="footer">
         <p className="footer-title">MathAI</p>
         <p className="footer-text">Proyecto desarrollado por estudiantes — 2026.</p>
