@@ -126,161 +126,172 @@ export default function App() {
 }
 
 
-  return (
-    <div className="page">
-      {/* ===== HEADER ===== */}
-      <header className="header">
-        <div className="header-inner">
-          <div
-            className="brand"
-            onClick={() => scrollToId("top")}
-            style={{ cursor: "pointer" }}
-          >
-            <div className="logo">LOGO</div>
-            <span className="brand-name">MathAI</span>
-          </div>
-
-          <nav className="nav">
-            <a href="#plans">Planes</a>
-            <a href="#devs">Desarrolladores</a>
-
-            {isLogged && (
-              <button
-                className="nav-logout logout"
-                onClick={handleLogout}
-                type="button"
-              >
-                Cerrar sesión
-              </button>
-            )}
-          </nav>
+ return (
+  <div className="page">
+    {/* ===== HEADER ===== */}
+    <header className="header">
+      <div className="header-inner">
+        <div
+          className="brand"
+          onClick={() => scrollToId("top")}
+          style={{ cursor: "pointer" }}
+        >
+          <div className="logo">LOGO</div>
+          <span className="brand-name">MathAI</span>
         </div>
-      </header>
 
-      {/* ===== MAIN ===== */}
-      <main className="main">
-        <section className="calculator" id="top">
-          {isLogged ? (
-            <>
-              <h1 className="calculator-title">
-                <span className="shine-platinum">
-                  Calculadora matemática avanzada
-                </span>
-              </h1>
+        <nav className="nav">
+          <a href="#plans">Planes</a>
+          <a href="#devs">Desarrolladores</a>
 
-              <p className="calculator-subtitle">
-                Resolvé problemas y visualizá funciones de forma clara e interactiva.
-              </p>
-
-              <div className="calculator-app">
-                <Calculator />
-              </div>
-            </>
-          ) : (
-            <Login onLogin={() => setIsLogged(true)} />
+          {isLogged && (
+            <button
+              className="nav-logout logout"
+              onClick={handleLogout}
+              type="button"
+            >
+              Cerrar sesión
+            </button>
           )}
-        </section>
+        </nav>
+      </div>
+    </header>
 
-        {/* ===== PLANES ===== */}
-        <section id="plans" className="section plans">
-          <h2 className="section-title">
-            <span className="shine-platinum">Planes</span>
-          </h2>
+    {/* ===== MAIN ===== */}
+    <main className="main">
+      <section className="calculator" id="top">
+        {isLogged ? (
+          <>
+            <h1 className="calculator-title">
+              <span className="shine-platinum">
+                Calculadora matemática avanzada
+              </span>
+            </h1>
 
-          <div className="plans-grid">
-            {PLANS.map((p) => (
-              <article
-                key={p.id}
-                className={`plan-card ${
-                  p.id === "premium"
-                    ? "plan-card--premium"
-                    : "plan-card--free"
-                } float-soft`}
+            <p className="calculator-subtitle">
+              Resolvé problemas y visualizá funciones de forma clara e
+              interactiva.
+            </p>
+
+            <div className="calculator-app">
+              <Calculator />
+            </div>
+          </>
+        ) : (
+          <Login onLogin={() => setIsLogged(true)} />
+        )}
+      </section>
+
+      {/* ===== PLANES ===== */}
+      <section id="plans" className="section plans">
+        <h2 className="section-title">
+          <span className="shine-platinum">Planes</span>
+        </h2>
+
+        <div className="plans-grid">
+          {PLANS.map((p) => (
+            <article
+              key={p.id}
+              className={`plan-card ${
+                p.id === "premium" ? "plan-card--premium" : "plan-card--free"
+              } float-soft`}
+            >
+              <header className="plan-head">
+                {p.badge && <div className="plan-badge">{p.badge}</div>}
+                <h3 className="plan-name">{p.name}</h3>
+                <p className="plan-price">
+                  <span className="plan-currency">$</span>
+                  {p.price}
+                  <span className="plan-period">{p.period}</span>
+                </p>
+                <p className="plan-desc">{p.desc}</p>
+              </header>
+
+              <ul className="plan-features">
+                {p.features.map((f) => (
+                  <li key={f}>{f}</li>
+                ))}
+              </ul>
+
+              <button
+                className={p.buttonClass}
+                type="button"
+                onClick={() => handlePlanClick(p.id)}
               >
-                <header className="plan-head">
-                  {p.badge && <div className="plan-badge">{p.badge}</div>}
-                  <h3 className="plan-name">{p.name}</h3>
-                  <p className="plan-price">
-                    <span className="plan-currency">$</span>
-                    {p.price}
-                    <span className="plan-period">{p.period}</span>
-                  </p>
-                  <p className="plan-desc">{p.desc}</p>
-                </header>
+                {p.buttonText}
+              </button>
 
-                <ul className="plan-features">
-                  {p.features.map((f) => (
-                    <li key={f}>{f}</li>
-                  ))}
+              <p className="plan-footnote">{p.footnote}</p>
+            </article>
+          ))}
+        </div>
+      </section>
+
+      {/* ===== DESARROLLADORES ===== */}
+      <section id="devs" className="section devs">
+        <h2 className="section-title">
+          <span className="shine-platinum">Desarrolladores</span>
+        </h2>
+        <p className="section-subtitle">
+          Equipo del proyecto — contacto directo para feedback, bugs o propuestas.
+        </p>
+
+        <div className="devs-grid">
+          {DEVELOPERS.map((d) => (
+            <article key={d.name} className="dev-card">
+              <div className="dev-avatar" aria-label={`Foto de ${d.name}`}>
+                <img src={d.image} alt={`Avatar de ${d.name}`} />
+              </div>
+
+              <div className="dev-body">
+                <h3 className="dev-name">{d.name}</h3>
+                <p className="dev-role">{d.role}</p>
+
+                <ul className="dev-contact">
+                  <li>
+                    <span className="dev-label">Email:</span>{" "}
+                    <a className="dev-link" href={`mailto:${d.email}`}>
+                      {d.email}
+                    </a>
+                  </li>
+
+                  <li>
+                    <span className="dev-label">GitHub:</span>{" "}
+                    <a
+                      className="dev-link"
+                      href={d.githubUrl}
+                      target="_blank"
+                      rel="noreferrer"
+                    >
+                      {d.githubLabel}
+                    </a>
+                  </li>
+
+                  <li>
+                    <span className="dev-label">LinkedIn:</span>{" "}
+                    <a
+                      className="dev-link"
+                      href={d.linkedinUrl}
+                      target="_blank"
+                      rel="noreferrer"
+                    >
+                      {d.linkedinLabel}
+                    </a>
+                  </li>
                 </ul>
+              </div>
+            </article>
+          ))}
+        </div>
+      </section>
+    </main>
 
-                <button
-                  className={p.buttonClass}
-                  type="button"
-                  onClick={() => handlePlanClick(p.id)}
-                >
-                  {p.buttonText}
-                </button>
-
-                <p className="plan-footnote">{p.footnote}</p>
-              </article>
-            ))}
-          </div>
-        </section>
-      </main>
-
-      <footer className="footer">
-        <p className="footer-title">MathAI</p>
-        <p className="footer-text">Proyecto desarrollado por estudiantes — 2026.</p>
-      </footer>
-    </div>
-  );
-{/* ===== DESARROLLADORES ===== */}
-        <section id="devs" className="section devs">
-          <h2 className="section-title">
-            <span className="shine-platinum">Desarrolladores</span>
-          </h2>
-          <p className="section-subtitle">
-            Equipo del proyecto — contacto directo para feedback, bugs o propuestas.
-          </p>
-
-          <div className="devs-grid">
-            {DEVELOPERS.map((d) => (
-              <article key={d.name} className="dev-card">
-                <div className="dev-avatar" aria-label={`Foto de ${d.name}`} >
-                  < img src={d.image} alt={`Avatar de ${d.name}`} />
-                </div>
-                <div className="dev-body">
-                  <h3 className="dev-name">{d.name}</h3>
-                  <p className="dev-role">{d.role}</p>
-
-                  <ul className="dev-contact">
-                    <li>
-                      <span className="dev-label">Email:</span>{" "}
-                      <a className="dev-link" href={`mailto:${d.email}`}>
-                        {d.email}
-                      </a>
-                    </li>
-
-                    <li>
-                      <span className="dev-label">GitHub:</span>{" "}
-                      <a className="dev-link" href={d.githubUrl} target="_blank" rel="noreferrer">
-                        {d.githubLabel}
-                      </a>
-                    </li>
-
-                    <li>
-                      <span className="dev-label">LinkedIn:</span>{" "}
-                      <a className="dev-link" href={d.linkedinUrl} target="_blank" rel="noreferrer">
-                        {d.linkedinLabel}
-                      </a>
-                    </li>
-                  </ul>
-                </div>
-              </article>
-            ))}
-          </div>
-        </section>
-      </main>
-
+    <footer className="footer">
+      <p className="footer-title">MathAI</p>
+      <p className="footer-text">
+        Proyecto desarrollado por estudiantes — 2026.
+      </p>
+    </footer>
+  </div>
+);
 }
