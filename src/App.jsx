@@ -14,26 +14,30 @@ const DEVELOPERS = [
     githubUrl: "#",
     linkedinLabel: "/in/lucas",
     linkedinUrl: "#",
+    image: "/GIARRA.jpg",
   },
   {
-    name: "Ian (Apellido)",
-    role: "Backend / API",
+    name: "Ian Levin",
+    role: "Backend",
     email: "ian@email.com",
     githubLabel: "@ian",
     githubUrl: "#",
     linkedinLabel: "/in/ian",
     linkedinUrl: "#",
+    image: "/IANLEVIN.jpg",
   },
   {
-    name: "Levin (IA)",
-    role: "IA / Producto",
-    email: "levin@email.com",
-    githubLabel: "@levin",
+    name: "IA Levin",
+    role: "AI / Automation",
+    email: "ialevi@email.com",
+    githubLabel: "@ialevin",
     githubUrl: "#",
-    linkedinLabel: "/in/levin",
+    linkedinLabel: "/in/ialevi",
     linkedinUrl: "#",
+    image: "/IALEVIN.jpeg",
   },
 ];
+
 
 const PLANS = [
   {
@@ -244,7 +248,7 @@ export default function App() {
             {DEVELOPERS.map((d) => (
               <article key={d.name} className="dev-card">
                 <div className="dev-avatar" aria-label={`Foto de ${d.name}`} >
-                  <img src="/giarra.png" alt={`Avatar de ${d.name}`} />
+                  < img src={d.image} alt={`Avatar de ${d.name}`} />
                 </div>
                 <div className="dev-body">
                   <h3 className="dev-name">{d.name}</h3>
