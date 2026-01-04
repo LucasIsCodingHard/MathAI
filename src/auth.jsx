@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { setToken } from "./auth";
 
-const AUTH_BASE = "https://deecd96e0dd3.ngrok-free.app";
+const AUTH_BASE = "https://4aff7ce0f81a.ngrok-free.app";
 
 export default function Auth({ onSuccess }) {
   const [mode, setMode] = useState("login"); // "login" | "register"

@@ -123,6 +123,9 @@ export default function App() {
     scrollToId("top");
   }
 
+  useEffect(() => {
+  setIsLogged(!!getToken());
+}, [showLogin]);
   // 🔒 Bloquear scroll del fondo cuando el modal está abierto
   useEffect(() => {
     document.body.style.overflow = showLogin ? "hidden" : "auto";
@@ -396,7 +399,7 @@ export default function App() {
             </button>
 
             <Login
-              onLogin={() => {
+              onSuccess={() => {
                 setIsLogged(true);
                 setShowLogin(false);
               }}
