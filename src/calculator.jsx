@@ -5,10 +5,26 @@ import ReactMarkdown from "react-markdown";
 import remarkMath from "remark-math";
 import rehypeKatex from "rehype-katex";
 
-const API_URL = "https://e9318b7a53b1.ngrok-free.app/math";
+const API_URL = "http://56.125.165.110:3000/math/";
 
 /* ===================== HELPERS ===================== */
+function normalizeMath(text) {
+  if (!text) return "";
 
+  let s = String(text);
+
+  // 1) Unificar saltos de línea
+  s = s.replace(/\r\n/g, "\n");
+
+  // 2) Si viene con \( \) o \[ \], convertir a $ / $$
+  s = s.replace(/\\\[(.*?)\\\]/gs, (_, m) => `$$${m}$$`);
+  s = s.replace(/\\\((.*?)\\\)/gs, (_, m) => `$${m}$`);
+
+  // 3) Caso “triple backticks” con latex: lo convierte a bloque
+  s = s.replace(/```latex\s*([\s\S]*?)```/g, (_, m) => `$$\n${m}\n$$`);
+
+  return s;
+}
 function toJsExpression(expr) {
   if (!expr || typeof expr !== "string") throw new Error("Expresión inválida");
 
@@ -608,7 +624,7 @@ export default function Calculator() {
             remarkPlugins={[remarkMath]}
             rehypePlugins={[rehypeKatex]}
           >
-            {answerText}
+            {normalizeMath(answerText)}
           </ReactMarkdown>
         </div>
       )}
