@@ -2,21 +2,15 @@
    THEME / TOKENS
 ========================================================= */
 :root {
-  /* Base */
   --black: #0b0b0f;
   --white: #ffffff;
 
-  /* Brand (violeta) */
   --violet-500: #7c5cff;
   --violet-600: #6a4df5;
   --violet-700: #5a3ee0;
 
-  /* Neutrals */
-  --gray-100: #f4f4f7;
   --gray-300: #c9c9d1;
-  --gray-600: #6b6b7a;
 
-  /* UI */
   --bg-main: var(--black);
   --bg-card: #12121a;
   --bg-input: #0b0b0f;
@@ -29,14 +23,19 @@
 
   --shadow-focus: 0 0 0 3px rgba(124, 92, 255, 0.18);
 
-  /* Radius */
   --radius: 14px;
   --radius-sm: 10px;
 }
 
 /* =========================================================
-   GLOBAL
+   GLOBAL / BASE
 ========================================================= */
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
 html {
   scroll-behavior: smooth;
 }
@@ -44,12 +43,37 @@ html {
 body {
   margin: 0;
   font-family: "Inter", system-ui, -apple-system, BlinkMacSystemFont, sans-serif;
-  background: var(--bg-main);
   color: var(--text-main);
+  background:
+    radial-gradient(1200px 700px at 15% 0%, rgba(124, 92, 255, 0.18), transparent 55%),
+    radial-gradient(900px 600px at 95% 10%, rgba(90, 62, 224, 0.16), transparent 55%),
+    radial-gradient(900px 800px at 35% 110%, rgba(124, 92, 255, 0.10), transparent 55%),
+    linear-gradient(180deg, #07070b, #0b0b0f);
 }
 
 section {
   scroll-margin-top: 80px;
+}
+
+.main {
+  width: 100%;
+}
+
+.section {
+  padding: 44px 16px;
+}
+
+.section-title {
+  margin: 0 0 10px 0;
+  font-size: 22px;
+  letter-spacing: 0.2px;
+}
+
+.section-subtitle {
+  margin: 0 0 18px 0;
+  color: var(--text-muted);
+  line-height: 1.5;
+  max-width: 70ch;
 }
 
 /* =========================================================
@@ -59,9 +83,9 @@ section {
   position: sticky;
   top: 0;
   z-index: 20;
-  background: rgba(11, 11, 15, 0.9);
-  backdrop-filter: blur(10px);
-  border-bottom: 1px solid var(--border-soft);
+  background: rgba(11, 11, 15, 0.72);
+  backdrop-filter: blur(14px);
+  border-bottom: 1px solid rgba(255,255,255,0.10);
 }
 
 .header-inner {
@@ -77,45 +101,127 @@ section {
   gap: 10px;
 }
 
-.logo {
-  width: 36px;
-  height: 36px;
-  border-radius: var(--radius-sm);
-  background: linear-gradient(135deg, var(--violet-500), var(--violet-700));
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  font-weight: 700;
-  font-size: 11px;
-}
+
 
 .brand-name {
   font-weight: 700;
   letter-spacing: 0.3px;
 }
 
+/* NAV (links + auth button) */
+.nav {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+}
+
 .nav a {
-  margin-left: 14px;
   font-size: 14px;
   color: var(--text-muted);
   text-decoration: none;
+  position: relative;
+  padding-bottom: 4px;
 }
 
 .nav a:hover {
   color: var(--violet-500);
 }
 
+.nav a::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  bottom: 0;
+  width: 0%;
+  height: 2px;
+  border-radius: 999px;
+  background: linear-gradient(90deg, var(--violet-500), var(--violet-700));
+  box-shadow: 0 0 14px rgba(124,92,255,0.35);
+  transition: width 220ms ease;
+}
+.nav a:hover::after { width: 100%; }
+
+/* separa auth del resto */
+.nav-auth {
+  margin-left: 18px;
+  display: flex;
+  align-items: center;
+}
+
+/* botones header */
+.nav-btn {
+  border-radius: 999px;
+  padding: 8px 14px;
+  font-size: 13px;
+  font-weight: 800;
+  letter-spacing: 0.2px;
+  cursor: pointer;
+  border: none;
+  transition: transform 140ms ease, box-shadow 140ms ease, filter 140ms ease, background 140ms ease;
+}
+
+.nav-btn--login {
+  background: linear-gradient(135deg, var(--violet-500), var(--violet-700));
+  color: #fff;
+  box-shadow: 0 10px 26px rgba(124,92,255,0.30), inset 0 1px 0 rgba(255,255,255,0.22);
+}
+.nav-btn--login:hover {
+  transform: translateY(-1px);
+  filter: brightness(1.06);
+  box-shadow: 0 16px 42px rgba(124,92,255,0.38), inset 0 1px 0 rgba(255,255,255,0.22);
+}
+.nav-btn--logout {
+  background: rgba(255,255,255,0.06);
+  color: rgba(255,255,255,0.90);
+  border: 1px solid rgba(255,255,255,0.18);
+}
+.nav-btn--logout:hover {
+  background: rgba(255,255,255,0.10);
+  box-shadow: 0 0 0 3px rgba(255,255,255,0.08);
+}
+
+@media (max-width: 640px) {
+  .nav-auth { margin-left: 10px; }
+  .nav-btn { padding: 7px 12px; font-size: 12px; }
+}
+
 /* =========================================================
-   CALCULATOR (PAGE SECTION)
+   TITLES SHINE (solo letras, sin franja)
+========================================================= */
+.shine-platinum {
+  position: relative;
+  display: inline-block;
+  color: transparent;
+  background: linear-gradient(
+    110deg,
+    #8e96a3 0%,
+    #f4f5f7 35%,
+    #cfd3da 50%,
+    #f4f5f7 65%,
+    #8e96a3 100%
+  );
+  background-size: 200% 100%;
+  -webkit-background-clip: text;
+  background-clip: text;
+  filter: drop-shadow(0 0 12px rgba(255,255,255,0.10));
+  animation: platinumShimmer 3.4s linear infinite;
+}
+
+@keyframes platinumShimmer {
+  0%   { background-position: 0% 50%; }
+  100% { background-position: 200% 50%; }
+}
+
+/* =========================================================
+   CALCULATOR
 ========================================================= */
 .calculator {
   padding: 24px 16px 40px;
-  color: var(--text-main);
 }
 
 .calculator-title {
-  font-size: 26px;
-  line-height: 1.2;
+  font-size: clamp(26px, 4vw, 40px);
+  letter-spacing: -0.02em;
   margin: 0 0 10px 0;
 }
 
@@ -125,25 +231,33 @@ section {
   margin: 0 0 20px 0;
 }
 
-/* Outer container of the app (dark card) */
 .calculator-app {
-  background: linear-gradient(
-    180deg,
-    rgba(255,255,255,0.04),
-    rgba(255,255,255,0.02)
-  );
-  border: none;             
+  background: linear-gradient(180deg, rgba(255,255,255,0.04), rgba(255,255,255,0.02));
+  border: 1px solid rgba(255,255,255,0.08);
   border-radius: 20px;
   padding: 24px;
+  box-shadow: 0 18px 50px rgba(0,0,0,0.55);
+  position: relative;
+  overflow: hidden;
 }
 
-
-/* Make inner elements inherit text color by default */
-.calculator-app * {
-  color: inherit;
+.calculator-app::after {
+  content: "";
+  position: absolute;
+  inset: -50%;
+  background: linear-gradient(135deg, transparent 38%, rgba(255,255,255,0.10) 50%, transparent 62%);
+  transform: rotate(12deg);
+  opacity: 0.20;
+  animation: sheen 6s ease-in-out infinite;
+  pointer-events: none;
 }
 
-/* Inputs (dark) */
+@keyframes sheen {
+  0%,100% { transform: translateX(-8%) rotate(12deg); opacity: 0.14; }
+  50%     { transform: translateX(8%)  rotate(12deg); opacity: 0.26; }
+}
+
+/* inputs dentro de calculator */
 .calculator-app textarea,
 .calculator-app input,
 .calculator-app select {
@@ -169,7 +283,8 @@ section {
   box-shadow: var(--shadow-focus);
 }
 
-/* Buttons */
+.calculator-app textarea { resize: none; }
+
 .calculator-app button {
   background: linear-gradient(135deg, var(--violet-500), var(--violet-700));
   color: var(--text-main);
@@ -178,10 +293,15 @@ section {
   padding: 12px 16px;
   font-weight: 600;
   cursor: pointer;
+  position: relative;
+  overflow: hidden;
+  box-shadow: 0 10px 26px rgba(124,92,255,0.22);
+  transition: transform 150ms ease, filter 150ms ease;
 }
 
 .calculator-app button:hover {
-  opacity: 0.92;
+  transform: translateY(-1px);
+  filter: brightness(1.03);
 }
 
 .calculator-app button:disabled {
@@ -189,253 +309,6 @@ section {
   cursor: not-allowed;
 }
 
-/* =========================================================
-   IMPORTANT: RESPONSE + PLOT LAYOUT
-   Mobile-first: stacked (top/bottom)
-   Tablet/PC: side-by-side
-========================================================= */
-.calc-button{
-  margin-top: 12px;
-  margin-right: 15px;
-}
-
-
-.calc-grid {
-  display: grid;
-  grid-template-columns: 1fr; /* 📱 Mobile: vertical */
-  gap: 12px;
-  margin-top: 12px;
-}
-
-/* A reusable "panel card" style for inner blocks */
-.calc-card {
-  background: rgba(255, 255, 255, 0.04);
-  border: 1px solid var(--border-soft);
-  border-radius: var(--radius);
-  padding: 14px;
-}
-.calc-card:first-of-type {
-  padding: 20px;
-  border-radius: 16px;
-  background: rgba(255,255,255,0.06);
-}
-
-/* If your old code uses .card (from inline version), style it too */
-.calculator-app .card {
-  background: rgba(255, 255, 255, 0.04);
-  border: 1px solid var(--border-soft);
-  border-radius: var(--radius);
-  padding: 14px;
-}
-.calculator-app textarea {
-  resize: none;
-}
-.calc-textarea {
-  min-height: 140px;
-} 
-/* Titles inside cards (optional if you want consistent h2) */
-.calc-card h2,
-.calculator-app .card h2 {
-  margin: 0 0 10px 0;
-  font-size: 16px;
-}
-
-/* Optional helper: keep long JSON readable */
-.calculator-app pre {
-  background: rgba(0, 0, 0, 0.35);
-  border: 1px solid var(--border-soft);
-  border-radius: 12px;
-  padding: 10px;
-  overflow-x: auto;
-}
-
-/* Tablet and up: side-by-side */
-@media (min-width: 768px) {
-  .calculator {
-    max-width: 720px;
-    margin: 0 auto;
-  }
-
-  .calc-grid {
-    grid-template-columns: 1fr 1fr; /* 🟪 Tablet/PC: two columns */
-    align-items: start;
-  }
-
-  .plans-grid {
-    grid-template-columns: 1fr 1fr;
-  }
-}
-
-/* Desktop wider layout */
-@media (min-width: 1024px) {
-  .header-inner,
-  .calculator,
-  .plans,
-  .footer {
-    max-width: 1100px;
-    margin: 0 auto;
-  }
-
-  .calculator-title {
-    font-size: 32px;
-  }
-
-  .calculator-app {
-    padding: 24px;
-  }
-}
-
-/* =========================================================
-   PLANS
-========================================================= */
-.plans {
-  padding: 32px 16px;
-}
-
-.plans-grid {
-  display: grid;
-  gap: 16px;
-}
-
-.plan-card {
-  background: var(--bg-card);
-  border: 1px solid var(--border-soft);
-  border-radius: var(--radius);
-  padding: 18px;
-}
-
-.plan-card--premium {
-  border-color: var(--violet-500);
-}
-
-.plan-card h3 {
-  margin-top: 0;
-  color: var(--violet-500);
-}
-
-/* =========================================================
-   FOOTER
-========================================================= */
-.footer {
-  padding: 32px 16px;
-  border-top: 1px solid var(--border-soft);
-  color: var(--text-muted);
-  text-align: center;
-  font-size: 14px;
-}
-
-/* 1) Box model sano para TODO */
-*,
-*::before,
-*::after {
-  box-sizing: border-box;
-}
-
-/* 2) En grid/flex, permite que los hijos NO se desborden */
-.calc-card,
-.calc-grid > * {
-  min-width: 0;
-}
-
-/* 3) Textarea siempre se queda dentro del bloque */
-.calculator-app textarea {
-  width: 100%;
-  max-width: 100%;
-  display: block;
-  resize: none; /* ya lo querías fijo */
-}
-
-
-/* =========================================================
-   UPGRADE: BACKGROUND / GLOW / ANIMATIONS (ADD-ON)
-   Pegalo al FINAL de tu CSS
-========================================================= */
-
-/* Fondo más pro sin tocar tus tokens */
-body {
-  background:
-    radial-gradient(1200px 700px at 15% 0%, rgba(124, 92, 255, 0.18), transparent 55%),
-    radial-gradient(900px 600px at 95% 10%, rgba(90, 62, 224, 0.16), transparent 55%),
-    radial-gradient(900px 800px at 35% 110%, rgba(124, 92, 255, 0.10), transparent 55%),
-    linear-gradient(180deg, #07070b, #0b0b0f);
-}
-
-/* Header glass más “premium” */
-.header {
-  background: rgba(11, 11, 15, 0.72);
-  backdrop-filter: blur(14px);
-  border-bottom: 1px solid rgba(255,255,255,0.10);
-}
-
-/* Logo con glow */
-.logo {
-  box-shadow: 0 0 0 6px rgba(124,92,255,0.12), 0 0 26px rgba(124,92,255,0.35);
-}
-
-/* Links con underline animado */
-.nav a {
-  position: relative;
-  padding-bottom: 4px;
-}
-.nav a::after {
-  content: "";
-  position: absolute;
-  left: 0;
-  bottom: 0;
-  width: 0%;
-  height: 2px;
-  border-radius: 999px;
-  background: linear-gradient(90deg, var(--violet-500), var(--violet-700));
-  box-shadow: 0 0 14px rgba(124,92,255,0.35);
-  transition: width 220ms ease;
-}
-.nav a:hover::after { width: 100%; }
-
-/* Cards del “app” con efecto vidrio + brillo diagonal */
-.calculator-app {
-  border: 1px solid rgba(255,255,255,0.08);
-  box-shadow: 0 18px 50px rgba(0,0,0,0.55);
-  position: relative;
-  overflow: hidden;
-}
-.calculator-app::after {
-  content: "";
-  position: absolute;
-  inset: -50%;
-  background: linear-gradient(135deg, transparent 38%, rgba(255,255,255,0.10) 50%, transparent 62%);
-  transform: rotate(12deg);
-  opacity: 0.20;
-  animation: sheen 6s ease-in-out infinite;
-  pointer-events: none;
-}
-@keyframes sheen {
-  0%,100% { transform: translateX(-8%) rotate(12deg); opacity: 0.14; }
-  50%     { transform: translateX(8%)  rotate(12deg); opacity: 0.26; }
-}
-
-/* Hover pro para paneles internos */
-.calc-card {
-  transition: transform 160ms ease, border-color 160ms ease, box-shadow 160ms ease;
-}
-@media (hover:hover) {
-  .calc-card:hover {
-    transform: translateY(-2px);
-    border-color: rgba(124,92,255,0.26);
-    box-shadow: 0 10px 30px rgba(124,92,255,0.14);
-  }
-}
-
-/* Botón con shimmer */
-.calculator-app button {
-  position: relative;
-  overflow: hidden;
-  box-shadow: 0 10px 26px rgba(124,92,255,0.22);
-  transition: transform 150ms ease, filter 150ms ease;
-}
-.calculator-app button:hover {
-  transform: translateY(-1px);
-  filter: brightness(1.03);
-}
 .calculator-app button::after {
   content: "";
   position: absolute;
@@ -446,134 +319,138 @@ body {
   animation: btnGlow 2.2s ease-in-out infinite;
   pointer-events: none;
 }
+
 @keyframes btnGlow {
   0%,100% { transform: translateX(-18%); opacity: 0.26; }
   50%     { transform: translateX(18%);  opacity: 0.40; }
 }
 
-/* Texto platinado con brillo interno (usalo para lo “importante”) */
-.shine-platinum {
-  background: linear-gradient(
-    110deg,
-    #8e96a3 0%,
-    #f4f5f7 35%,
-    #cfd3da 50%,
-    #f4f5f7 65%,
-    #8e96a3 100%
-  );
-  background-size: 200% 100%;
-  -webkit-background-clip: text;
-  background-clip: text;
-  color: transparent;
-  filter: drop-shadow(0 0 12px rgba(255,255,255,0.10));
-  display: inline-block;
-  animation: platinumShimmer 3.4s linear infinite;
-}
-@keyframes platinumShimmer {
-  0%   { background-position: 0% 50%; }
-  100% { background-position: 200% 50%; }
+/* grid respuesta / grafico */
+.calc-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 12px;
+  margin-top: 12px;
 }
 
-/* Float suave (si querés “levitar” cosas: agregá class="float-soft") */
-.float-soft { animation: floatSoft 4.2s ease-in-out infinite; }
-@keyframes floatSoft {
-  0%,100% { transform: translateY(0); }
-  50%     { transform: translateY(-4px); }
+.calc-card {
+  background: rgba(255, 255, 255, 0.04);
+  border: 1px solid var(--border-soft);
+  border-radius: var(--radius);
+  padding: 14px;
+  overflow: hidden;
+  min-width: 0;
+  transition: transform 160ms ease, border-color 160ms ease, box-shadow 160ms ease;
 }
 
-/* Fix final anti-overflow mobile */
-.calc-grid,
-.calculator-app,
-.calc-card,
-.calc-pre,
-.calculator-app textarea {
+@media (hover:hover) {
+  .calc-card:hover {
+    transform: translateY(-2px);
+    border-color: rgba(124,92,255,0.26);
+    box-shadow: 0 10px 30px rgba(124,92,255,0.14);
+  }
+}
+
+.calc-textarea { min-height: 140px; }
+
+.calc-answer,
+.calc-pre {
+  white-space: pre-wrap;
+  overflow-wrap: anywhere;
   max-width: 100%;
-}
-/* ---------- Helpers / Layout ---------- */
-.main {
-  width: 100%;
+  line-height: 1.55;
+  font-size: 14.5px;
 }
 
-.section {
-  padding: 44px 16px;
+.calc-pre {
+  background: rgba(0, 0, 0, 0.35);
+  border: 1px solid var(--border-soft);
+  border-radius: 12px;
+  padding: 14px;
+  margin: 10px 0 0 0;
+  overflow-x: hidden;
+  overflow-y: auto;
+  max-height: 420px;
 }
 
-.section-title {
-  margin: 0 0 10px 0;
-  font-size: 22px;
-  letter-spacing: 0.2px;
+@media (max-width: 767px) {
+  .calc-pre { max-height: none; }
 }
 
-.section-subtitle {
-  margin: 0 0 18px 0;
-  color: var(--text-muted);
-  line-height: 1.5;
-  max-width: 70ch;
+@media (min-width: 768px) {
+  .calculator { max-width: 720px; margin: 0 auto; }
+  .calc-grid { grid-template-columns: 1fr 1fr; }
 }
 
-/* si querés que se vea más “hero” */
-.calculator-title {
-  font-size: clamp(26px, 4vw, 40px);
-  letter-spacing: -0.02em;
+@media (min-width: 1024px) {
+  .header-inner,
+  .calculator,
+  .plans,
+  .footer {
+    max-width: 1100px;
+    margin: 0 auto;
+  }
 }
 
-/* ---------- Platinum shimmer (lo que ya usás: .shine-platinum) ---------- */
-.shine-platinum {
-  position: relative;
-  display: inline-block;
-  color: rgba(255, 255, 255, 0.92);
-  text-shadow:
-    0 0 18px rgba(255, 255, 255, 0.10),
-    0 0 40px rgba(124, 92, 255, 0.10);
+@media (min-width: 1280px) {
+  .header-inner,
+  .calculator,
+  .plans,
+  .footer { max-width: 1400px; }
+
+  .calc-grid {
+    grid-template-columns: 1.6fr 1.8fr;
+    gap: 24px;
+  }
+
+  .calc-card {
+    padding: 26px;
+    border-radius: 20px;
+  }
+
+  .calc-answer,
+  .calc-pre {
+    font-size: 16px;
+    line-height: 1.65;
+  }
 }
 
-.shine-platinum::after {
-  content: "";
-  position: absolute;
-  inset: -8px -14px;
-  background: linear-gradient(
-    120deg,
-    transparent 0%,
-    rgba(255,255,255,0.10) 18%,
-    rgba(255,255,255,0.42) 28%,
-    rgba(255,255,255,0.10) 38%,
-    transparent 60%
-  );
-  transform: translateX(-120%);
-  filter: blur(0.4px);
-  mix-blend-mode: screen;
-  pointer-events: none;
-  animation: shimmer 3.4s ease-in-out infinite;
-  border-radius: 999px;
+@media (min-width: 1600px) {
+  .header-inner,
+  .calculator,
+  .plans,
+  .footer { max-width: 1600px; }
+
+  .calc-grid {
+    grid-template-columns: 1.8fr 2.2fr;
+    gap: 28px;
+  }
 }
 
-@keyframes shimmer {
-  0%   { transform: translateX(-120%); opacity: 0; }
-  25%  { opacity: 1; }
-  55%  { opacity: 1; }
-  100% { transform: translateX(120%); opacity: 0; }
+/* =========================================================
+   PLANS / DEV CARDS (estilo unificado)
+========================================================= */
+.plans { padding: 32px 16px; }
+
+.plans-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 14px;
+  margin-top: 14px;
 }
 
-/* ---------- Cards PRO (unifica look) ---------- */
 .plan-card,
 .dev-card {
   position: relative;
-  background: linear-gradient(
-    180deg,
-    rgba(255,255,255,0.06),
-    rgba(255,255,255,0.03)
-  );
+  background: linear-gradient(180deg, rgba(255,255,255,0.06), rgba(255,255,255,0.03));
   border: 1px solid var(--border-soft);
   border-radius: 18px;
   padding: 18px;
   overflow: hidden;
-  box-shadow:
-    0 10px 35px rgba(0,0,0,0.35),
-    inset 0 1px 0 rgba(255,255,255,0.05);
+  box-shadow: 0 10px 35px rgba(0,0,0,0.35), inset 0 1px 0 rgba(255,255,255,0.05);
   transition: transform 180ms ease, border-color 180ms ease, box-shadow 180ms ease;
 }
 
-/* glow “ambient” */
 .plan-card::before,
 .dev-card::before {
   content: "";
@@ -598,111 +475,8 @@ body {
     inset 0 1px 0 rgba(255,255,255,0.06);
 }
 
-/* class que ya usabas */
-.float-soft {
-  animation: floatSoft 4.5s ease-in-out infinite;
-}
-@keyframes floatSoft {
-  0%, 100% { transform: translateY(0); }
-  50% { transform: translateY(-6px); }
-}
+.plan-card--premium { border-color: rgba(124,92,255,0.55); }
 
-/* ---------- Planes ---------- */
-.plans-grid {
-  display: grid;
-  grid-template-columns: 1fr;
-  gap: 14px;
-  margin-top: 14px;
-}
-
-.plan-head {
-  margin-bottom: 12px;
-}
-
-.plan-name {
-  margin: 0;
-  font-size: 18px;
-  font-weight: 800;
-  letter-spacing: 0.2px;
-  color: rgba(255,255,255,0.92);
-}
-
-.plan-price {
-  margin: 8px 0 6px 0;
-  font-weight: 800;
-  font-size: 22px;
-  color: rgba(255,255,255,0.98);
-}
-
-.plan-currency { opacity: 0.85; margin-right: 2px; }
-.plan-period { font-size: 14px; opacity: 0.7; margin-left: 4px; }
-
-.plan-desc {
-  margin: 0;
-  color: var(--text-muted);
-  line-height: 1.5;
-}
-
-.plan-features {
-  margin: 14px 0 14px 0;
-  padding-left: 18px;
-  color: rgba(255,255,255,0.90);
-}
-
-.plan-features li {
-  margin: 8px 0;
-  line-height: 1.45;
-}
-
-/* Botones pro */
-.plan-button {
-  width: 100%;
-  border: none;
-  border-radius: 14px;
-  padding: 12px 14px;
-  font-weight: 800;
-  letter-spacing: 0.2px;
-  cursor: pointer;
-  transition: transform 160ms ease, filter 160ms ease, box-shadow 160ms ease;
-}
-
-.plan-button:active {
-  transform: translateY(1px) scale(0.99);
-}
-
-.plan-button--ghost {
-  background: rgba(255,255,255,0.06);
-  color: rgba(255,255,255,0.92);
-  border: 1px solid rgba(255,255,255,0.12);
-}
-
-.plan-button--ghost:hover {
-  filter: brightness(1.08);
-  box-shadow: 0 0 0 3px rgba(124,92,255,0.10);
-}
-
-.plan-button--primary {
-  background: linear-gradient(135deg, var(--violet-500), var(--violet-700));
-  color: #fff;
-  box-shadow:
-    0 14px 40px rgba(124,92,255,0.22),
-    inset 0 1px 0 rgba(255,255,255,0.18);
-}
-
-.plan-button--primary:hover {
-  filter: brightness(1.08);
-  box-shadow:
-    0 18px 55px rgba(124,92,255,0.30),
-    0 0 0 3px rgba(124,92,255,0.18);
-}
-
-.plan-footnote {
-  margin: 10px 0 0 0;
-  font-size: 13px;
-  color: rgba(255,255,255,0.70);
-}
-
-/* premium badge */
 .plan-badge {
   display: inline-flex;
   align-items: center;
@@ -718,11 +492,53 @@ body {
   margin-bottom: 10px;
 }
 
-.plan-card--premium {
-  border-color: rgba(124,92,255,0.55);
+.plan-name { margin: 0; font-size: 18px; font-weight: 800; color: rgba(255,255,255,0.92); }
+.plan-price { margin: 8px 0 6px 0; font-weight: 800; font-size: 22px; color: rgba(255,255,255,0.98); }
+.plan-period { font-size: 14px; opacity: 0.7; margin-left: 4px; }
+.plan-desc { margin: 0; color: var(--text-muted); line-height: 1.5; }
+
+.plan-features {
+  margin: 14px 0 14px 0;
+  padding-left: 18px;
+  color: rgba(255,255,255,0.90);
+}
+.plan-features li { margin: 8px 0; line-height: 1.45; }
+
+.plan-button {
+  width: 100%;
+  border: none;
+  border-radius: 14px;
+  padding: 12px 14px;
+  font-weight: 800;
+  letter-spacing: 0.2px;
+  cursor: pointer;
+  transition: transform 160ms ease, filter 160ms ease, box-shadow 160ms ease;
+}
+.plan-button:active { transform: translateY(1px) scale(0.99); }
+
+.plan-button--ghost {
+  background: rgba(255,255,255,0.06);
+  color: rgba(255,255,255,0.92);
+  border: 1px solid rgba(255,255,255,0.12);
+}
+.plan-button--ghost:hover {
+  filter: brightness(1.08);
+  box-shadow: 0 0 0 3px rgba(124,92,255,0.10);
 }
 
-/* ---------- Devs ---------- */
+.plan-button--primary {
+  background: linear-gradient(135deg, var(--violet-500), var(--violet-700));
+  color: #fff;
+  box-shadow: 0 14px 40px rgba(124,92,255,0.22), inset 0 1px 0 rgba(255,255,255,0.18);
+}
+.plan-button--primary:hover {
+  filter: brightness(1.08);
+  box-shadow: 0 18px 55px rgba(124,92,255,0.30), 0 0 0 3px rgba(124,92,255,0.18);
+}
+
+.plan-footnote { margin: 10px 0 0 0; font-size: 13px; color: rgba(255,255,255,0.70); }
+
+/* Devs */
 .devs-grid {
   display: grid;
   grid-template-columns: 1fr;
@@ -737,48 +553,34 @@ body {
   align-items: start;
 }
 
-/* “foto” circular placeholder */
+/* avatar con img real circular */
 .dev-avatar {
   width: 64px;
   height: 64px;
   border-radius: 999px;
+  overflow: hidden;
+  border: 1px solid rgba(255,255,255,0.14);
+  box-shadow: 0 12px 35px rgba(124,92,255,0.18), inset 0 1px 0 rgba(255,255,255,0.14);
   background:
     radial-gradient(circle at 30% 30%, rgba(255,255,255,0.18), transparent 55%),
     linear-gradient(135deg, rgba(124,92,255,0.70), rgba(90,62,224,0.55));
-  border: 1px solid rgba(255,255,255,0.14);
-  box-shadow:
-    0 12px 35px rgba(124,92,255,0.18),
-    inset 0 1px 0 rgba(255,255,255,0.14);
+  display: grid;
+  place-items: center;
 }
 
-.dev-name {
-  margin: 0;
-  font-size: 16px;
-  font-weight: 900;
-  letter-spacing: 0.15px;
+.dev-avatar img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
 }
 
-.dev-role {
-  margin: 6px 0 10px 0;
-  color: rgba(255,255,255,0.78);
-  font-size: 13px;
-}
+.dev-name { margin: 0; font-size: 16px; font-weight: 900; letter-spacing: 0.15px; }
+.dev-role { margin: 6px 0 10px 0; color: rgba(255,255,255,0.78); font-size: 13px; }
 
-.dev-contact {
-  margin: 0;
-  padding-left: 18px;
-  color: rgba(255,255,255,0.86);
-}
-
-.dev-contact li {
-  margin: 7px 0;
-  line-height: 1.4;
-}
-
-.dev-label {
-  color: rgba(255,255,255,0.65);
-  margin-right: 6px;
-}
+.dev-contact { margin: 0; padding-left: 18px; color: rgba(255,255,255,0.86); }
+.dev-contact li { margin: 7px 0; line-height: 1.4; }
+.dev-label { color: rgba(255,255,255,0.65); margin-right: 6px; }
 
 .dev-link {
   color: rgba(124,92,255,0.95);
@@ -786,385 +588,700 @@ body {
   border-bottom: 1px solid rgba(124,92,255,0.25);
   transition: color 150ms ease, border-color 150ms ease, text-shadow 150ms ease;
 }
-
 .dev-link:hover {
   color: rgba(170, 150, 255, 1);
   border-color: rgba(170, 150, 255, 0.55);
   text-shadow: 0 0 18px rgba(124,92,255,0.25);
 }
 
-/* ---------- Responsivo (mobile-first) ---------- */
 @media (min-width: 768px) {
-  .plans-grid {
-    grid-template-columns: 1fr 1fr;
-    gap: 16px;
-  }
-
-  .devs-grid {
-    grid-template-columns: 1fr 1fr;
-    gap: 16px;
-  }
-
-  .section-title {
-    font-size: 24px;
-  }
+  .plans-grid { grid-template-columns: 1fr 1fr; gap: 16px; }
+  .devs-grid { grid-template-columns: 1fr 1fr; gap: 16px; }
+  .section-title { font-size: 24px; }
 }
 
 @media (min-width: 1024px) {
-  .devs-grid {
-    grid-template-columns: 1fr 1fr 1fr;
-  }
+  .devs-grid { grid-template-columns: 1fr 1fr 1fr; }
 }
 
-/* ---------- Accesibilidad / Motion ---------- */
+/* =========================================================
+   FOOTER
+========================================================= */
+.footer {
+  padding: 32px 16px;
+  border-top: 1px solid var(--border-soft);
+  color: var(--text-muted);
+  text-align: center;
+  font-size: 14px;
+}
+
+/* =========================================================
+   AUTH (Login component base)
+========================================================= */
+.auth-head { text-align: center; margin-bottom: 20px; }
+.auth-title { margin: 0; font-size: 22px; }
+.auth-subtitle { margin-top: 6px; font-size: 14px; color: var(--text-muted); }
+.auth-form { display: grid; gap: 14px; }
+.auth-label { display: flex; flex-direction: column; gap: 6px; font-size: 13px; }
+
+.auth-input {
+  background: var(--bg-input);
+  color: var(--text-main);
+  border: 1px solid var(--border-input);
+  border-radius: 12px;
+  padding: 12px 14px;
+  outline: none;
+}
+.auth-input:focus { border-color: var(--violet-500); box-shadow: var(--shadow-focus); }
+
+.auth-button {
+  margin-top: 8px;
+  width: 100%;
+  background: linear-gradient(135deg, var(--violet-500), var(--violet-700));
+  border: none;
+  border-radius: 12px;
+  padding: 12px;
+  font-weight: 600;
+  cursor: pointer;
+}
+.auth-button:disabled { opacity: 0.6; cursor: not-allowed; }
+
+.auth-error {
+  background: rgba(255, 70, 70, 0.12);
+  border: 1px solid rgba(255, 70, 70, 0.3);
+  padding: 10px 12px;
+  border-radius: 10px;
+  font-size: 13px;
+}
+
+.auth-success {
+  background: rgba(80, 200, 120, 0.12);
+  border: 1px solid rgba(80, 200, 120, 0.3);
+  padding: 10px 12px;
+  border-radius: 10px;
+  font-size: 13px;
+}
+
+.auth-switch {
+  margin-top: 10px;
+  text-align: center;
+  font-size: 13px;
+  color: var(--text-muted);
+}
+
+.auth-link {
+  background: none;
+  border: none;
+  color: var(--violet-500);
+  cursor: pointer;
+  font-weight: 600;
+}
+
+/* =========================================================
+   LOGIN MODAL (estable, sin doble card)
+========================================================= */
+.auth-overlay {
+  position: fixed;
+  inset: 0;
+  z-index: 9999;
+  display: grid;
+  place-items: center;
+  padding: 24px;
+  background: rgba(0, 0, 0, 0.55);
+  backdrop-filter: blur(10px);
+}
+
+.auth-modal {
+  width: min(520px, 92vw);
+  max-height: calc(100vh - 48px);
+  overflow: auto;
+  border-radius: 18px;
+  padding: 28px;
+  background: linear-gradient(180deg, rgba(255,255,255,0.08), rgba(255,255,255,0.04));
+  border: 1px solid rgba(255,255,255,0.14);
+  box-shadow: 0 24px 90px rgba(0,0,0,0.65);
+  position: relative;
+  animation: modalIn 160ms ease-out;
+}
+
+@keyframes modalIn {
+  from { opacity: 0; transform: translateY(10px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+.auth-close {
+  position: absolute;
+  top: 12px;
+  right: 12px;
+  width: 36px;
+  height: 36px;
+  border-radius: 999px;
+  background: rgba(255,255,255,0.08);
+  border: 1px solid rgba(255,255,255,0.14);
+  color: rgba(255,255,255,0.9);
+  cursor: pointer;
+  display: grid;
+  place-items: center;
+  transition: transform 140ms ease, background 140ms ease, box-shadow 140ms ease;
+}
+.auth-close:hover {
+  background: rgba(255,255,255,0.12);
+  transform: translateY(-1px);
+  box-shadow: 0 0 0 3px rgba(124,92,255,0.12);
+}
+.auth-close:active { transform: translateY(0); }
+
+/* IMPORTANT: el Login NO debe traer su propia card dentro del modal */
+.auth { width: 100%; display: block; padding: 0; }
+.auth-card {
+  width: 100%;
+  max-width: none;
+  background: transparent;
+  border: none;
+  box-shadow: none;
+  padding: 0;
+  border-radius: 0;
+}
+
+/* =========================================================
+   REDUCE MOTION
+========================================================= */
 @media (prefers-reduced-motion: reduce) {
-  .float-soft,
-  .shine-platinum::after {
+  .shine-platinum,
+  .calculator-app::after,
+  .calculator-app button::after,
+  .auth-modal {
     animation: none !important;
   }
 
+  .calc-card,
   .plan-card,
   .dev-card,
-  .plan-button {
+  .plan-button,
+  .nav-btn {
     transition: none !important;
   }
 }
-.calc-card {
-  overflow: hidden; /* corta cualquier overflow raro */
-}
+/* =========================================================
+   HEADER DESKTOP UPGRADE
+========================================================= */
 
-/* Texto de respuesta (pre o p) */
-.calc-answer,
-.calc-pre {
-  white-space: pre-wrap;      /* ⬅️ permite saltos de línea */
-  word-wrap: break-word;      /* ⬅️ corta palabras largas */
-  overflow-wrap: anywhere;    /* ⬅️ rompe strings infinitos */
-  max-width: 100%;
-  line-height: 1.55;
-}
+/* Desktop */
+@media (min-width: 1024px) {
+  .header-inner {
+    padding: 18px 24px; /* más alto el header */
+  }
 
-/* Pre específicamente (JSON / debug / texto largo) */
-.calc-pre {
-  background: rgba(0, 0, 0, 0.35);
-  border: 1px solid var(--border-soft);
-  border-radius: 12px;
-  padding: 14px;
-  margin: 10px 0 0 0;
+  .logo {
+    width: 48px;   /* antes 36px */
+    height: 48px;
+    border-radius: 12px;
+  }
 
-  /* 🔥 CLAVE: */
-  overflow-x: hidden; /* ❌ nunca horizontal */
-  overflow-y: auto;   /* ✅ vertical solo si hace falta */
+  .brand-name {
+    font-size: 18px;
+    letter-spacing: 0.4px;
+  }
 
-  max-height: 420px;  /* opcional: evita cards infinitas */
-}
-
-/* Evita que details empuje ancho */
-.calc-details {
-  max-width: 100%;
-}
-
-.calc-details summary {
-  cursor: pointer;
-  user-select: none;
-}
-
-/* En mobile: más aire vertical */
-@media (max-width: 767px) {
-  .calc-pre {
-    max-height: none; /* en mobile dejalo crecer todo */
+  .nav a {
+    font-size: 15px;
   }
 }
 
+/* Desktop grande */
 @media (min-width: 1280px) {
-  .header-inner,
-  .calculator,
-  .plans,
-  .footer {
-    max-width: 1400px;   /* antes 1100px */
+  .logo {
+    width: 56px;   /* 🔥 bien visible */
+    height: 56px;
+    border-radius: 14px;
+  }
+
+  .brand-name {
+    font-size: 20px;
   }
 }
+/* =========================================================
+   LOGO MathAPS – GRANDE + LIMPIO
+========================================================= */
 
-@media (min-width: 1600px) {
-  .header-inner,
-  .calculator,
-  .plans,
-  .footer {
-    max-width: 1600px;   /* monitores grandes */
-  }
-}
-@media (min-width: 1280px) {
-  .calc-grid {
-    grid-template-columns: 1.6fr 1.8fr; /* 🔥 Respuesta | Gráfico */
-    gap: 24px;
-  }
-}
+.logo {
+  background: none !important;
+  background-color: transparent !important;
+  box-shadow: none !important;
+  border: none !important;
+  border-radius: 0 !important;
 
-@media (min-width: 1600px) {
-  .calc-grid {
-    grid-template-columns: 1.8fr 2.2fr; /* pantallas grandes posta */
-    gap: 28px;
-  }
-}
-@media (min-width: 1280px) {
-  .calc-card {
-    padding: 26px;
-    border-radius: 20px;
-  }
-}
-/* Texto principal de la respuesta */
-.calc-answer,
-.calc-pre {
-  font-size: 14.5px;
-}
+  padding: 0 !important;
+  margin: 0;
 
-@media (min-width: 1280px) {
-  .calc-answer,
-  .calc-pre {
-    font-size: 16px;       /* 🔥 */
-    line-height: 1.65;
-  }
-}
-/* =========================
-   LOGIN MODAL (PRO)
-========================= */
-.login-overlay {
-  position: fixed;
-  inset: 0;
-  background: radial-gradient(circle at 20% 10%, rgba(124,92,255,.25), transparent 45%),
-              rgba(0,0,0,.65);
-  backdrop-filter: blur(10px);
-  display: grid;
-  place-items: center;
-  z-index: 9999;
-  padding: 16px;
-  animation: fadeIn .18s ease-out;
-}
+  width: 64px;        /* mobile */
+  height: auto;
 
-.login-modal {
-  width: min(520px, 100%);
-  border-radius: 22px;
-  padding: 22px;
-  background:
-    linear-gradient(180deg, rgba(255,255,255,.06), rgba(255,255,255,.03));
-  border: 1px solid rgba(255,255,255,.12);
-  box-shadow: 0 30px 80px rgba(0,0,0,.55);
-  position: relative;
-  overflow: hidden;
-  animation: popIn .22s ease-out;
-}
-
-.login-modal::before {
-  content: "";
-  position: absolute;
-  inset: -2px;
-  background: radial-gradient(circle at 15% 20%, rgba(124,92,255,.30), transparent 50%),
-              radial-gradient(circle at 85% 30%, rgba(255,255,255,.10), transparent 55%);
-  filter: blur(12px);
-  opacity: .9;
-  pointer-events: none;
-}
-
-@keyframes fadeIn { from { opacity: 0 } to { opacity: 1 } }
-@keyframes popIn {
-  from { transform: translateY(8px) scale(.98); opacity: 0 }
-  to { transform: translateY(0) scale(1); opacity: 1 }
-}
-
-/* =========================
-   Login content styling
-   (asume clases dentro de <Login />)
-========================= */
-.login-card {;
-  position: relative;
-  z-index: 1;
-  padding: 10px 6px 6px;
-}
-
-.login-title {
-  margin: 0 0 6px 0;
-  font-size: 22px;
-  letter-spacing: .2px;
-}
-
-.login-subtitle {
-  margin: 0 0 14px 0;
-  color: rgba(255,255,255,.72);
-  font-size: 14px;
-  line-height: 1.45;
-}
-
-.login-form {
-  display: grid;
-  gap: 12px;
-}
-
-.login-field label {
   display: block;
-  font-size: 13px;
-  color: rgba(255,255,255,.75);
-  margin: 0 0 6px 0;
 }
 
-.login-field input {
-  width: 100%;
-  background: rgba(0,0,0,.35);
-  border: 1px solid rgba(255,255,255,.14);
-  border-radius: 14px;
-  padding: 12px 14px;
-  color: #fff;
-  outline: none;
+/* Tablet */
+@media (min-width: 768px) {
+  .logo {
+    width: 78px;
+  }
 }
 
-.login-field input:focus {
-  border-color: rgba(124,92,255,.75);
-  box-shadow: 0 0 0 3px rgba(124,92,255,.18);
+/* Desktop */
+@media (min-width: 1024px) {
+  .logo {
+    width: 104px;     /* 🔥 bien visible */
+  }
 }
 
-.login-actions {
+/* Desktop grande */
+@media (min-width: 1280px) {
+  .logo {
+    width: 200px;     /* 🔥🔥 branding fuerte */
+  }
+}
+.brand {
+  display: flex;
+  align-items: center;
+  gap: 1px;   /* ⬅️ antes era 10 o más */
+}
+/* =========================================================
+   HEADER (logo sin recuadro, más grande y pegado al texto)
+========================================================= */
+.header {
+  position: sticky;
+  top: 0;
+  z-index: 50;
+  background: rgba(11, 11, 15, 0.72);
+  backdrop-filter: blur(14px);
+  border-bottom: 1px solid rgba(255,255,255,0.10);
+}
+
+.header-inner {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  gap: 10px;
-  margin-top: 6px;
+  padding: 14px 16px;
 }
 
-.login-button {
-  width: 100%;
-  background: linear-gradient(135deg, rgba(124,92,255,1), rgba(90,62,224,1));
-  border: none;
-  color: #fff;
-  padding: 12px 16px;
-  border-radius: 14px;
-  font-weight: 700;
-  cursor: pointer;
-  transition: transform .15s ease, filter .15s ease;
+/* Brand */
+.brand {
+  display: flex;
+  align-items: center;
+  gap: 10px;            /* más pegado */
+  user-select: none;
 }
 
-.login-button:hover {
-  transform: translateY(-1px);
-  filter: brightness(1.05);
+/* Logo: sin fondo / sin marco */
+.logo {
+  width: 44px;
+  height: 44px;
+  background: transparent !important;
+  border: none !important;
+  box-shadow: none !important;
+  border-radius: 0 !important;
+  display: grid;
+  place-items: center;
 }
 
-.login-error {
-  background: rgba(255, 70, 70, .10);
-  border: 1px solid rgba(255, 70, 70, .22);
-  padding: 10px 12px;
-  border-radius: 14px;
-  color: rgba(255,255,255,.92);
-  font-size: 13px;
+.logo-img {
+  width: 44px;
+  height: 44px;
+  object-fit: contain; /* no recorta */
+  display: block;
+  filter: drop-shadow(0 10px 20px rgba(124, 92, 255, 0.22));
 }
 
-/* Shine platinum que pediste (usable en Login también) */
-.shine-platinum {
-  background: linear-gradient(90deg,
-      rgba(230,230,235,.75),
-      rgba(255,255,255,1),
-      rgba(190,190,200,.75));
-  -webkit-background-clip: text;
-  background-clip: text;
-  color: transparent;
+/* Texto del brand */
+.brand-text {
+  display: flex;
+  flex-direction: column;
+  line-height: 1.05;
+  gap: 2px;
+}
+
+.brand-name {
+  font-weight: 900;
+  letter-spacing: 0.2px;
+}
+
+.brand-tagline {
+  font-size: 12px;
+  color: rgba(255,255,255,0.62);
+  letter-spacing: 0.15px;
+}
+
+/* Nav */
+.nav {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+}
+
+.nav a {
+  font-size: 14px;
+  color: var(--text-muted);
+  text-decoration: none;
   position: relative;
-  text-shadow: 0 0 18px rgba(255,255,255,.08);
+  padding-bottom: 4px;
 }
 
-.shine-platinum::after {
+.nav a::after {
   content: "";
   position: absolute;
-  inset: 0;
-  background: linear-gradient(120deg,
-    transparent 0%,
-    rgba(255,255,255,.25) 40%,
-    transparent 70%);
-  transform: translateX(-120%);
-  animation: shineMove 2.6s ease-in-out infinite;
-  mix-blend-mode: screen;
-}
-
-@keyframes shineMove {
-  0% { transform: translateX(-120%) }
-  55% { transform: translateX(120%) }
-  100% { transform: translateX(120%) }
-}
-/* =========================================================
-   HEADER – LOGIN / LOGOUT BUTTON
-========================================================= */
-
-.nav-logout {
-  appearance: none;
-  border: 1px solid rgba(124, 92, 255, 0.45);
-  background: linear-gradient(
-    135deg,
-    rgba(124, 92, 255, 0.18),
-    rgba(90, 62, 224, 0.18)
-  );
-  color: #fff;
-  padding: 8px 14px;
+  left: 0;
+  bottom: 0;
+  width: 0%;
+  height: 2px;
   border-radius: 999px;
-  font-size: 13px;
-  font-weight: 600;
-  letter-spacing: 0.3px;
+  background: linear-gradient(90deg, var(--violet-500), var(--violet-700));
+  box-shadow: 0 0 14px rgba(124,92,255,0.35);
+  transition: width 220ms ease;
+}
+
+.nav a:hover { color: var(--violet-500); }
+.nav a:hover::after { width: 100%; }
+
+/* =========================================================
+   HERO / INTRO (texto de arriba “qué hace / para quién”)
+========================================================= */
+.hero {
+  margin: 8px 0 18px 0;
+}
+
+.hero-title {
+  margin: 0 0 10px 0;
+  font-size: clamp(30px, 3.2vw, 46px);
+  line-height: 1.08;
+  letter-spacing: -0.03em;
+}
+
+.hero-subtitle {
+  margin: 0 0 14px 0;
+  max-width: 72ch;
+  color: rgba(255,255,255,0.76);
+  line-height: 1.55;
+  font-size: 15px;
+}
+
+.hero-badges {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  margin: 0 0 16px 0;
+}
+
+.hero-badge {
+  font-size: 12px;
+  font-weight: 900;
+  letter-spacing: 0.2px;
+  padding: 7px 10px;
+  border-radius: 999px;
+  background: rgba(255,255,255,0.06);
+  border: 1px solid rgba(255,255,255,0.10);
+  color: rgba(255,255,255,0.90);
+}
+
+.hero-points {
+  margin: 0 0 16px 0;
+  padding-left: 18px;
+  color: rgba(255,255,255,0.86);
+  max-width: 78ch;
+}
+
+.hero-points li {
+  margin: 8px 0;
+  line-height: 1.5;
+}
+
+.hero-cta {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  align-items: center;
+  margin: 0;
+}
+
+.hero-btn {
+  border: none;
+  border-radius: 999px;
+  padding: 10px 14px;
+  font-weight: 900;
   cursor: pointer;
-  position: relative;
-  overflow: hidden;
-
-  transition:
-    transform 0.15s ease,
-    box-shadow 0.15s ease,
-    border-color 0.15s ease,
-    background 0.15s ease;
+  transition: transform 140ms ease, filter 140ms ease, box-shadow 140ms ease, background 140ms ease;
 }
 
-/* brillo interno */
-.nav-logout::before {
-  content: "";
-  position: absolute;
-  inset: 0;
-  background: linear-gradient(
-    120deg,
-    transparent 0%,
-    rgba(255, 255, 255, 0.35) 45%,
-    transparent 70%
-  );
-  transform: translateX(-120%);
-  transition: transform 0.6s ease;
-  pointer-events: none;
+.hero-btn--primary {
+  background: linear-gradient(135deg, var(--violet-500), var(--violet-700));
+  color: #fff;
+  box-shadow: 0 14px 40px rgba(124,92,255,0.24);
 }
 
-/* hover */
-.nav-logout:hover {
+.hero-btn--primary:hover {
   transform: translateY(-1px);
-  border-color: rgba(124, 92, 255, 0.9);
-  box-shadow:
-    0 0 0 3px rgba(124, 92, 255, 0.18),
-    0 8px 24px rgba(0, 0, 0, 0.35);
+  filter: brightness(1.06);
+  box-shadow: 0 20px 60px rgba(124,92,255,0.32);
 }
 
-.nav-logout:hover::before {
-  transform: translateX(120%);
+.hero-btn--ghost {
+  background: rgba(255,255,255,0.06);
+  color: rgba(255,255,255,0.92);
+  border: 1px solid rgba(255,255,255,0.12);
 }
 
-/* active */
-.nav-logout:active {
-  transform: translateY(0);
-  box-shadow: 0 0 0 2px rgba(124, 92, 255, 0.2);
+.hero-btn--ghost:hover {
+  background: rgba(255,255,255,0.10);
+  box-shadow: 0 0 0 3px rgba(124,92,255,0.10);
+}
+
+.hero-note {
+  margin: 8px 0 0 0;
+  font-size: 13px;
+  color: rgba(255,255,255,0.62);
 }
 
 /* =========================================================
-   VARIANTE LOGOUT (cuando está logueado)
+   RESPONSIVE SOLO PARA ESTO
 ========================================================= */
-.nav-logout.logout {
-  margin-left: ;
-  border-color: rgba(255, 120, 120, 0.45);
-  background: linear-gradient(
-    135deg,
-    rgba(255, 80, 80, 0.15),
-    rgba(180, 40, 40, 0.15)
-  );
+@media (min-width: 1024px) {
+  .header-inner { padding: 18px 18px; }
+
+  .logo { width: 52px; height: 52px; }
+  .logo-img { width: 52px; height: 52px; }
+
+  .brand-name { font-size: 16px; }
+  .brand-tagline { font-size: 12.5px; }
 }
 
-.nav-logout.logout:hover {
-  border-color: rgba(255, 120, 120, 0.85);
-  box-shadow:
-    0 0 0 3px rgba(255, 80, 80, 0.18),
-    0 8px 24px rgba(0, 0, 0, 0.35);
+@media (max-width: 640px) {
+  .hero-btn { width: 100%; }
+}
+/* =========================================================
+   HERO (texto arriba de la calculadora) - MÁS GRANDE + AIRE
+   Pegá al FINAL del CSS
+========================================================= */
+
+.calculator {
+  padding: 42px 16px 54px; /* más espacio arriba/abajo */
+}
+
+.calculator-title {
+  font-size: clamp(36px, 4vw, 56px); /* más grande */
+  line-height: 1.05;
+  margin: 0 0 14px 0;
+  letter-spacing: -0.02em;
+}
+
+.calculator-subtitle {
+  font-size: clamp(16px, 1.6vw, 20px);
+  line-height: 1.55;
+  margin: 0 0 22px 0;
+  max-width: 70ch;
+  opacity: 0.92;
+}
+
+/* Pills / tags (Paso a paso, etc.) */
+.hero-pills,
+.pills,
+.badges-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  margin: 12px 0 18px;
+}
+
+.hero-pill,
+.pill,
+.badge-chip {
+  font-size: 14px;
+  padding: 8px 12px;
+  border-radius: 999px;
+}
+
+/* Bullets (Para quién / Qué hace / Por qué usarlo) */
+.hero-list,
+.calculator ul {
+  margin: 14px 0 20px;
+  padding-left: 18px;
+}
+
+.hero-list li,
+.calculator ul li {
+  margin: 10px 0;         /* separa los items */
+  line-height: 1.6;
+  font-size: 16px;
+}
+
+/* Botones del hero */
+.hero-actions,
+.cta-row {
+  display: flex;
+  gap: 12px;
+  flex-wrap: wrap;
+  margin: 18px 0 10px;
+}
+
+.hero-actions button,
+.cta-row button {
+  padding: 12px 16px;
+  font-size: 14px;
+}
+
+/* =========================================================
+   CALCULATOR CARD - MÁS GRANDE + INPUT MÁS ALTO
+========================================================= */
+
+.calculator-app {
+  padding: 32px;             /* más aire dentro de la card */
+  border-radius: 22px;
+}
+
+/* Título "Math Web" */
+.calculator-app h2,
+.calculator-app .calc-title,
+.calculator-app .card h2 {
+  font-size: 26px;
+  margin: 0 0 14px;
+}
+
+/* 🔥 Textarea / input de consulta: MUCHO MÁS GRANDE */
+.calculator-app textarea,
+.calculator-app .calc-textarea,
+.calculator-app input[type="text"] {
+  font-size: 16px;
+  padding: 16px 16px;
+}
+
+/* Si tu input es TEXTAREA: agrandalo fuerte */
+.calculator-app textarea,
+.calculator-app .calc-textarea {
+  min-height: 180px;   /* default grande */
+  height: 200px;       /* para que se vea grande sí o sí */
+  line-height: 1.55;
+}
+
+/* Si en tu componente usás un input grande en vez de textarea, sumale altura */
+.calculator-app input[type="text"] {
+  min-height: 56px;
+}
+
+/* Separación debajo del input y arriba de botones */
+.calculator-app .calc-controls,
+.calculator-app .actions,
+.calculator-app .button-row {
+  margin-top: 14px;
+  display: flex;
+  gap: 12px;
+  flex-wrap: wrap;
+}
+
+/* Botones (Adjuntar / Enviar) un toque más grandes */
+.calculator-app button {
+  padding: 12px 16px;
+  font-size: 14px;
+  border-radius: 14px;
+}
+
+/* =========================================================
+   DESKTOP: todavía más aire
+========================================================= */
+@media (min-width: 1024px) {
+  .calculator {
+    padding: 62px 16px 64px;
+  }
+
+  .calculator-app {
+    padding: 40px;
+  }
+
+  .calculator-app textarea,
+  .calculator-app .calc-textarea {
+    min-height: 220px;
+    height: 240px;
+  }
+}
+/* =========================================================
+   HERO INFO (subtítulo + pills + bullets) MÁS GRANDE
+   Pegá al FINAL del CSS
+========================================================= */
+
+/* Subtítulo/descripción */
+.calculator-subtitle {
+  font-size: clamp(18px, 1.7vw, 24px);
+  line-height: 1.7;
+  margin: 10px 0 18px 0;
+  max-width: 80ch;
+  opacity: 0.95;
+}
+
+/* Pills (Paso a paso / Graficador / Export / Ideal...) */
+.hero-pills,
+.pills,
+.badges-row {
+  gap: 12px;
+  margin: 14px 0 20px;
+}
+
+.hero-pill,
+.pill,
+.badge-chip {
+  font-size: 15px;
+  padding: 10px 14px;
+  border-radius: 999px;
+}
+
+/* Lista (Para quién / Qué hace / Por qué usarlo) */
+.hero-list,
+.hero-list li {
+  font-size: 18px;
+  line-height: 1.75;
+}
+
+.hero-list,
+.calculator ul {
+  margin: 18px 0 22px;
+  padding-left: 22px;
+}
+
+.hero-list li,
+.calculator ul li {
+  margin: 14px 0;   /* más separación entre bullets */
+}
+
+/* Resaltar los “subtítulos” en negrita dentro de los bullets */
+.hero-list strong,
+.calculator ul strong {
+  font-weight: 900;
+  font-size: 18px;
+}
+
+/* Tip (la línea de “Tip: podés pegar…”) */
+.hero-tip,
+.tip,
+.calculator .tip {
+  font-size: 15px;
+  line-height: 1.6;
+  margin-top: 10px;
+  opacity: 0.85;
+}
+
+/* Desktop: todavía más grande */
+@media (min-width: 1024px) {
+  .calculator-subtitle {
+    font-size: 22px;
+    margin-bottom: 20px;
+  }
+
+  .hero-list li,
+  .calculator ul li {
+    font-size: 19px;
+    margin: 16px 0;
+  }
+
+  .hero-pill,
+  .pill,
+  .badge-chip {
+    font-size: 15.5px;
+    padding: 10px 16px;
+  }
 }
