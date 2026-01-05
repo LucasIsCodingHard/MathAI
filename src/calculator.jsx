@@ -5,7 +5,7 @@ import ReactMarkdown from "react-markdown";
 import remarkMath from "remark-math";
 import rehypeKatex from "rehype-katex";
 
-const API_URL = "http://56.125.165.110:3000/math/";
+const API_URL = "https://mathapsapi.duckdns.org/math/";
 
 /* ===================== HELPERS ===================== */
 function normalizeMath(text) {
