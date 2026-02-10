@@ -36,7 +36,7 @@ export default function Auth({ onSuccess }) {
         throw new Error(data?.message || data?.error || `Error ${res.status}`);
       }
 
-      // ✅ CASO REGISTER: normalmente NO devuelve token
+      // ✅ CASO REGISTER: normalmente NO devuelve token 
       if (mode === "register") {
         setSuccessMsg("Cuenta creada ✅ Ahora iniciá sesión.");
         setMode("login");
